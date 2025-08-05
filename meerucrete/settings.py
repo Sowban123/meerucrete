@@ -27,7 +27,8 @@ import os
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['meerucrete.onrender.com', 'www.meerucrete.onrender.com']
+ALLOWED_HOSTS = ['*']
+
 
 
 
