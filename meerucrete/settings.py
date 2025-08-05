@@ -124,19 +124,14 @@ USE_I18N = True
 
 USE_TZ = True
 
+import os
+from pathlib import Path
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-STATIC_URL = '/static/'  # Correct static URL
-
-# For development
-STATICFILES_DIRS = [
-    BASE_DIR / "static",  # This is where your static files are stored
-]
-
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]  # for development
+STATIC_ROOT = BASE_DIR / "staticfiles"    # for deployment
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
