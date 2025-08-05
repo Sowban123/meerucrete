@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-hpurq#x3_tnd_bogm!4+t$d*xurzv81owmzl3u#o%b612t84u+
 # SECURITY WARNING: don't run with debug turned on in production!
 import os
 
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+DEBUG=True
 
 ALLOWED_HOSTS = ['*']
 
