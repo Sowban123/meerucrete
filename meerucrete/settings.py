@@ -27,7 +27,8 @@ import os
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost').split(',')
+ALLOWED_HOSTS = ['meerucrete.onrender.com', 'www.meerucrete.onrender.com']
+
 
 
 
@@ -44,7 +45,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
