@@ -86,10 +86,14 @@ WSGI_APPLICATION = 'meerucrete.wsgi.application'
 import os
 import dj_database_url
 
-DATABASE_URL = os.environ.get("DATABASE_URL", "postgres://postgres:1234@localhost:5432/merucrete_db")
+# Default to local PostgreSQL, override with DATABASE_URL env variable
+DATABASE_URL = os.environ.get(
+    "DATABASE_URL",
+    "postgres://postgres:1234@localhost:5432/merucrete_db"
+)
 
 DATABASES = {
-    'default': dj_database_url.config(
+    "default": dj_database_url.config(
         default=DATABASE_URL,
         conn_max_age=600,
         ssl_require=DATABASE_URL.startswith("postgres://") and "localhost" not in DATABASE_URL
