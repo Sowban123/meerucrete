@@ -23,14 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hpurq#x3_tnd_bogm!4+t$d*xurzv81owmzl3u#o%b612t84u+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-import os
+DEBUG = True
 
-DEBUG=True
-
-ALLOWED_HOSTS = ['*']
-
-
-
+ALLOWED_HOSTS = ["merucrete.com", "www.merucrete.com"]
+    
 
 
 # Application definition
@@ -46,14 +42,13 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -83,14 +78,15 @@ TEMPLATES = [
 WSGI_APPLICATION = 'meerucrete.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+import os
+import dj_database_url
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get("DATABASE_URL"),
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 
@@ -124,14 +120,19 @@ USE_I18N = True
 
 USE_TZ = True
 
-import os
-from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]  # for development
-STATIC_ROOT = BASE_DIR / "staticfiles"    # for deployment
+STATIC_URL = '/static/'  # Correct static URL
+
+# For development
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # This is where your static files are stored
+]
+
+# For production
+STATIC_ROOT = BASE_DIR / ""  # This is where static files will be collected
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
