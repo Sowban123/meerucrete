@@ -24,8 +24,13 @@ SECRET_KEY = 'django-insecure-hpurq#x3_tnd_bogm!4+t$d*xurzv81owmzl3u#o%b612t84u+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "www.merucrete.com",
+    "meerucrete-2.onrender.com",  # Render free subdomain
+]
 
-ALLOWED_HOSTS = ["merucrete.com", "www.merucrete.com","127.0.0.1"]
     
 
 
