@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-hpurq#x3_tnd_bogm!4+t$d*xurzv81owmzl3u#o%b612t84u+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["merucrete.com", "www.merucrete.com"]
+ALLOWED_HOSTS = ["merucrete.com", "www.merucrete.com","127.0.0.1"]
     
 
 
@@ -43,9 +43,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",   # <-- right after security
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -81,13 +81,16 @@ WSGI_APPLICATION = 'meerucrete.wsgi.application'
 import os
 import dj_database_url
 
+DATABASE_URL = os.environ.get("DATABASE_URL", "postgres://postgres:1234@localhost:5432/merucrete_db")
+
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get("DATABASE_URL"),
+        default=DATABASE_URL,
         conn_max_age=600,
-        ssl_require=True
+        ssl_require=DATABASE_URL.startswith("postgres://") and "localhost" not in DATABASE_URL
     )
 }
+
 
 
 # Password validation
@@ -122,27 +125,30 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
+STATIC_URL = '/static/'
 
-STATIC_URL = '/static/'  # Correct static URL
-
-# For development
+# Development - where you put your own static files
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # This is where your static files are stored
+    BASE_DIR / "static",
 ]
 
-# For production
-STATIC_ROOT = BASE_DIR / ""  # This is where static files will be collected
+# Production - where collectstatic will copy everything
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# Media files (uploads)
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / "media"
 
+
+# Let WhiteNoise compress and cache static files
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # settings.py
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'mohammedsowban008@gmail.com'  # use real email
-EMAIL_HOST_PASSWORD = 'epdjnqqwydojadqm'   # Gmail app password or SMTP pass
+EMAIL_HOST_USER = 'nnahmed.1982@gmail.com   '  # use real email
+EMAIL_HOST_PASSWORD = 'fclupabmpigmiwhj'   # Gmail app password or SMTP pass
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
