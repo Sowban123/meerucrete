@@ -6,8 +6,7 @@ def create_superuser(apps, schema_editor):
 
     username = "admin"
     email = "admin@example.com"
-    password = "Admin@123"   # change later if you want
-
+    password = "Admin@123"  # change later if you want
     if not User.objects.filter(username=username).exists():
         User.objects.create_superuser(
             username=username,
@@ -18,9 +17,8 @@ def create_superuser(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("core", "0001_initial"),  # change "core" if your app name is different
-    ]
-
+    ("shop", "0001_initial"),
+]
     operations = [
         migrations.RunPython(create_superuser),
-    ]
+    ]
