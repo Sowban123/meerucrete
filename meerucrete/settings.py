@@ -165,6 +165,9 @@
 
 
 
+
+
+
 """
 Django settings for meerucrete project.
 """
@@ -247,7 +250,7 @@ DATABASE_URL = os.getenv("DATABASE_URL", LOCAL_DB)  # default to local DB when e
 DATABASES = {
     "default": dj_database_url.parse(DATABASE_URL)
 }
-
+ 
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -268,9 +271,8 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# Media files (uploads)
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = "/opt/render/project/src/media"
 
 # Let WhiteNoise compress and cache static files
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

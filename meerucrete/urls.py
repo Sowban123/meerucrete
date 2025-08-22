@@ -16,16 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('shop.urls')),  # This makes your homepage work correctly
-
+    path('', include('shop.urls')),  # Your app URLs
 ]
 
-# Serve static and media files during development
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# In production, we rely on WhiteNoise for static files,
+# and media files should be served via cloud storage or Render static site.
+# Do NOT use the development static/media serving in production.
