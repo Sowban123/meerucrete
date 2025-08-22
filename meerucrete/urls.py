@@ -14,14 +14,19 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('shop.urls')),  # Your app URLs
+    path('', include('shop.urls')),
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),  # Your app URLs
+
 ]
 
 # In production, we rely on WhiteNoise for static files,
 # and media files should be served via cloud storage or Render static site.
 # Do NOT use the development static/media serving in production.
+from django.views.static import serve
+
