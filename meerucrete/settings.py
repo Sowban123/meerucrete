@@ -168,7 +168,8 @@
 Django settings for meerucrete project.
 """
 
-import os,decouple
+import os
+from decouple import config, Csv
 from pathlib import Path
 import dj_database_url
 from decouple import config, Csv
