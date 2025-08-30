@@ -166,7 +166,6 @@
 
 
 
-
 import os
 from pathlib import Path
 import dj_database_url
@@ -194,8 +193,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # your apps
-    "shop",
+    "shop",  # your app
 ]
 
 MIDDLEWARE = [
@@ -209,7 +207,8 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "home.urls"
+# ✅ FIXED: Use your project name (meerucrete), not 'home'
+ROOT_URLCONF = "meerucrete.urls"
 
 TEMPLATES = [
     {
@@ -227,7 +226,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "home.wsgi.application"
+# ✅ FIXED: Point to correct wsgi app
+WSGI_APPLICATION = "meerucrete.wsgi.application"
 
 # Database
 DATABASES = {
