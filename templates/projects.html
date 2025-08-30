@@ -1169,6 +1169,109 @@ img.mb-3 {
 }
 
 
+    /* PROJECTS SECTION */
+    .projects-section {
+      padding: 80px 20px;
+      background: #f9f9f9;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+
+    .projects-heading {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 50px;
+      color: #881b35;
+    }
+
+    .projects-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .project-card {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      width: 300px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .project-image-wrapper {
+      overflow: hidden;
+    }
+
+    .project-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .project-card:hover .project-image {
+      transform: scale(1.1);
+    }
+
+    .project-content {
+      padding: 20px;
+    }
+
+    .project-title {
+      font-size: 20px;
+      color: #881b35;
+      margin-bottom: 10px;
+    }
+
+    .project-description {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+      color: #555;
+    }
+
+    .read-more {
+      text-decoration: none;
+      color: #f4a742;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .read-more span {
+      margin-left: 5px;
+      transition: margin-left 0.3s;
+    }
+
+    .read-more:hover {
+      color: #881b35;
+    }
+
+    .read-more:hover span {
+      margin-left: 10px;
+    }
+
+    @media (max-width: 992px) {
+      .projects-container {
+        justify-content: space-around;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .project-card {
+        width: 100%;
+      }
+    }
+
+
+
+    
+
 
   </style>
 </head>
@@ -1217,61 +1320,43 @@ img.mb-3 {
 
 
 <section class="custom-heading">
-  <h2>Our  Product</h2>
+  <h2>Our Projects</h2>
 </section>
 
 
 
+  <!-- PROJECTS SECTION -->
+  <section class="projects-section" id="projects" data-aos="fade-up" data-aos-duration="1500">
 
-<div class="container">
+    <div class="projects-container">
 
-
-  {% for s in series %}
-
-    
-  
-  <div class="image-wrapper" data-aos="fade-up" data-aos-duration="1500">
-    {% if s.main_image %}
-      <img src="{{ s.main_image.url }}" alt="{{ s.title }}" class="main-image" />
-    {% endif %}
-    <br>
-    <br>
-    <div class="card-container">
-      {% for card in s.cards.all %}
-      <div class="popup-card">
-        <img src="{{ card.image.url }}" alt="{{ card.color }} - {{ card.size }}" />
-        <div class="card-info">
-          <p><strong>Color:</strong> {{ card.color }}</p>
-          <p><strong>Size:</strong> {{ card.size }}</p>
+      {% for project in projects %}
+      <div class="project-card" data-aos="fade-up" data-aos-duration="1200">
+        <div class="project-image-wrapper">
+          <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-image">
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">{{ project.title }}</h3>
+          <p class="project-description short">{{ project.short_description|truncatechars:100 }}</p>
+          <a href="{% url 'project_detail' project.pk %}" class="read-more">
+            Read More <span>➤</span>
+          </a>
         </div>
       </div>
       {% endfor %}
+
     </div>
-    
-  </div>
-<div class="background-pattern">
-  <div class="maroon-bar"></div>
-  <div class="text-line">
-    <h1>
-      <span class="viana">{{ s.title }}</span>
-      <br>
-      <span class="series">SERIES</span>
-    </h1>
-  </div>
-  <a href="#" class="enquiry-btn" data-product="{{ s.title }}">Enquiry</a>
-</div>
-
-  
-<br>
-<br>
-  
-  {% endfor %}
-</div>
+  </section>
 
 
 
+ 
 
- <section>
+
+ 
+
+
+<section>
   <!-- Retirement Footer Section -->
   <div class="retirement-footer text-center py-5" data-aos="fade-up" data-aos-duration="1500">
     
@@ -1303,164 +1388,6 @@ img.mb-3 {
 
   </div>
 </section>
-
-<!-- Popup enquiry form -->
-<div class="popup-overlay" id="popupOverlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:1000;">
-  <div class="popup-form" style="background:#fff; padding:20px 30px; border-radius:8px; max-width:400px; width:100%; box-shadow:0 2px 10px rgba(0,0,0,0.3); position:relative;">
-    <span class="close-btn" id="closeBtn" style="position:absolute; top:10px; right:15px; font-size:22px; font-weight:bold; color:#999; cursor:pointer;">&times;</span>
-    <h2 style="margin-top:0; margin-bottom:15px; font-size:22px;">Product Enquiry</h2>
-    <form id="enquiryForm" method="POST" action="{% url 'save_enquiry' %}">
-      {% csrf_token %}
-      <!-- Product Name Title -->
-      <label for="productName" style="display:block; margin-top:12px; font-weight:bold; color: #000000;">Product Name</label>
-      <input type="text" id="productName" name="productName" readonly style="width:100%; padding:7px; margin-top:5px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box;" />
-      
-      <!-- Address Title -->
-      <label for="address" style="display:block; margin-top:12px; font-weight:bold;color: #000000;">Address</label>
-      <input type="text" id="address" name="address" placeholder="Enter your address" required style="width:100%; padding:7px; margin-top:5px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box;" />
-      
-      <!-- State Title -->
-      <label for="state" style="display:block; margin-top:12px; font-weight:bold;color: #000000;";>State</label>
-      <select id="state" name="state" required style="width:100%; padding:7px; margin-top:5px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box;">
-        <option value="" disabled selected>Select your state</option>
-        <option value="Andhra Pradesh">Andhra Pradesh</option>
-        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-        <option value="Assam">Assam</option>
-        <option value="Bihar">Bihar</option>
-        <option value="Chhattisgarh">Chhattisgarh</option>
-        <option value="Goa">Goa</option>
-        <option value="Gujarat">Gujarat</option>
-        <option value="Haryana">Haryana</option>
-        <option value="Himachal Pradesh">Himachal Pradesh</option>
-        <option value="Jharkhand">Jharkhand</option>
-        <option value="Karnataka">Karnataka</option>
-        <option value="Kerala">Kerala</option>
-        <option value="Madhya Pradesh">Madhya Pradesh</option>
-        <option value="Maharashtra">Maharashtra</option>
-        <option value="Manipur">Manipur</option>
-        <option value="Meghalaya">Meghalaya</option>
-        <option value="Mizoram">Mizoram</option>
-        <option value="Nagaland">Nagaland</option>
-        <option value="Odisha">Odisha</option>
-        <option value="Punjab">Punjab</option>
-        <option value="Rajasthan">Rajasthan</option>
-        <option value="Sikkim">Sikkim</option>
-        <option value="Tamil Nadu">Tamil Nadu</option>
-        <option value="Telangana">Telangana</option>
-        <option value="Tripura">Tripura</option>
-        <option value="Uttar Pradesh">Uttar Pradesh</option>
-        <option value="Uttarakhand">Uttarakhand</option>
-        <option value="West Bengal">West Bengal</option>
-        <option value="Delhi">Delhi</option>
-        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-        <option value="Ladakh">Ladakh</option>
-        <option value="Puducherry">Puducherry</option>
-      </select>
-      
-      <!-- Mobile Number Title -->
-      <label for="mobile" style="display:block; margin-top:12px; font-weight:bold;color: #000000;">Mobile Number</label>
-      <div style="display:flex; gap:5px;">
-        <input type="text" value="+91" readonly style="width:50px; text-align:center; background:#eee; border:1px solid #ccc; border-radius:4px;" />
-        <input type="tel" id="mobile" name="mobile" placeholder="Enter mobile number" pattern="[6-9][0-9]{9}" required style="flex:1; padding:7px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box;" />
-      </div>
-      
-      <!-- Message Title -->
-      <label for="message" style="display:block; margin-top:12px; font-weight:bold;color: #000000;">Your Question / Message</label>
-      <textarea id="message" name="message" placeholder="Type your question or message here..." required style="width:100%; padding:7px; margin-top:5px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box; min-height:70px; resize:vertical;"></textarea>
-      
-      <button type="submit" style="margin-top:15px; width:100%; background-color:#28a745; color:#fff; padding:10px; font-size:16px; border:none; border-radius:5px; cursor:pointer;">Submit Enquiry</button>
-    </form>
-  </div>
-</div>
-
-      {% if messages %}
-      {% for message in messages %}
-        <div id="success-alert" style="
-            padding: 15px;
-            background-color: #4CAF50;
-            color: white;
-            text-align: center;
-            font-size: 16px;
-            border-radius: 5px;
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            display: none;
-        ">
-          {{ message }}
-          <span onclick="this.parentElement.style.display='none';" style="
-              position: absolute;
-              right: 15px;
-              top: 50%;
-              transform: translateY(-50%);
-              cursor: pointer;
-              font-size: 20px;
-              font-weight: bold;
-          ">&times;</span>
-        </div>
-      {% endfor %}
-    {% endif %}
-    
-    <script>
-      // Display the success alert
-      window.onload = function () {
-        const alertBox = document.getElementById('success-alert');
-        if (alertBox) {
-          alertBox.style.display = 'block';  // Show the alert box
-          setTimeout(() => {
-            alertBox.style.display = 'none'; // Hide the alert after 5 seconds
-          }, 5000);  // 5 seconds
-        }
-      };
-    </script>
-    
-    
-<!-- PLACE SCRIPT HERE, at the end of body -->
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-  const enquiryButtons = document.querySelectorAll('.enquiry-btn');
-  const popupOverlay = document.getElementById('popupOverlay'); 
-  const productNameInput = document.getElementById('productName'); 
-  const closeBtn = document.getElementById('closeBtn'); 
-  const enquiryForm = document.getElementById('enquiryForm');
-
-  enquiryButtons.forEach(button => {
-    button.addEventListener('click', e => {
-      e.preventDefault();
-      // Get product name directly from data attribute
-      const productName = button.getAttribute('data-product') || "Unknown Product";
-      productNameInput.value = productName;
-
-      popupOverlay.style.display = 'flex';
-    });
-  });
-
-  closeBtn.addEventListener('click', () => {
-    popupOverlay.style.display = 'none';
-    enquiryForm.reset();
-  });
-
-  popupOverlay.addEventListener('click', e => {
-    if (e.target === popupOverlay) {
-      popupOverlay.style.display = 'none';
-      enquiryForm.reset();
-    }
-  });
-});
-
-</script>
-
-
-
- 
-
-
 
  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/js/lightgallery.min.js"></script>
 

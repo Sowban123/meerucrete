@@ -1,13 +1,16 @@
-from django.shortcuts import render
-from .models import Slide, Contact
+from django.shortcuts import render, get_object_or_404
+from .models import Slide, Contact, Project
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 
+# ---------------- Home Page ----------------
 def index(request):
     slides = Slide.objects.all()
-    return render(request, 'index.html', {'slides': slides})
+    projects = Project.objects.all()[:2]  # Show first 4 projects on homepage
+    return render(request, 'index.html', {'slides': slides, 'projects': projects})
 
+# ---------------- Contact Page ----------------
 def contact(request):
     if request.method == "POST":
         name = request.POST.get('name', '')
@@ -15,11 +18,11 @@ def contact(request):
         phone = request.POST.get('phone', '')
         message = request.POST.get('message', '')
 
-        # Save to DB
+        # Save to database
         contact = Contact(name=name, email=email, phone=phone, message=message)
         contact.save()
 
-        # Email logic (based on your ref)
+        # Send email notification
         subject = "New Contact Form Submission"
         body = f"""
         Name: {name}
@@ -34,31 +37,58 @@ def contact(request):
 
     return render(request, 'contactus.html')
 
-def product_view(request):
-    return render(request, 'product.html')
-
+# ---------------- About Page ----------------
 def about_view(request):
     return render(request, 'about.html')
 
+# ---------------- Product Page ----------------
+def product_view(request):
+    return render(request, 'product.html')
 
+from django.shortcuts import render, get_object_or_404
+from .models import Project
+
+def project_list(request):
+    projects = Project.objects.all()
+    return render(request, 'projects.html', {'projects': projects})
+def project_detail(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    features_list = project.features.split(',') if project.features else []
+
+    return render(request, 'project_detail.html', {
+        'project': project,
+        'features_list': features_list
+    })
+
+# views.py
 from django.shortcuts import render
-from .models import ProductCollection
+from .models import ProductCollection, ProductCatalogue
 
+# Collection page
 def product_section(request):
     series = ProductCollection.objects.prefetch_related('cards').all()
     return render(request, 'product.html', {'series': series})
 
-from django.shortcuts import render
-from .models import ProductCatalogue
-
+# Catalogue page
 def product_catalogue_view(request):
-    series = ProductCatalogue.objects.all()
+    series = ProductCatalogue.objects.prefetch_related('cards').all()
     return render(request, 'product2.html', {'series': series})
+
+
+
+
+
+
+
+
+
 
 # shop/views.py
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.core.mail import send_mail
 from .models import ProductEnquiry
+from django.conf import settings
 
 def save_enquiry(request):
     if request.method == 'POST':
@@ -66,40 +96,37 @@ def save_enquiry(request):
         address = request.POST.get('address')
         state = request.POST.get('state')
         mobile = request.POST.get('mobile')
-        message = request.POST.get('message')
+        message_text = request.POST.get('message')
 
+        # Save to database
         ProductEnquiry.objects.create(
             product_name=product_name,
             address=address,
             state=state,
             mobile=mobile,
-            message=message
+            message=message_text
         )
-        messages.success(request, "Your enquiry has been submitted successfully!")
 
-    return redirect('product')  # or whatever page you want to redirect after form submit
+        # Send email notification
+        subject = f"New Product Enquiry: {product_name}"
+        body = f"""
+        You have received a new product enquiry.
 
-
-from django.shortcuts import redirect
-from django.contrib import messages
-from .models import ProductEnquiry
-
-def save_enquiry(request):
-    if request.method == 'POST':
-        product_name = request.POST.get('productName')
-        address = request.POST.get('address')
-        state = request.POST.get('state')
-        mobile = request.POST.get('mobile')
-        message = request.POST.get('message')
-
-        ProductEnquiry.objects.create(
-            product_name=product_name,
-            address=address,
-            state=state,
-            mobile=mobile,
-            message=message
+        Product: {product_name}
+        Address: {address}
+        State: {state}
+        Mobile: {mobile}
+        Message: {message_text}
+        """
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,  # Your email from settings.py
+            ['nnahmed.1982@gmail.com'],  # Replace with the email that should receive notifications
+            fail_silently=False,
         )
+
         messages.success(request, "Your enquiry has been submitted successfully!")
-        return redirect('product_section')  # Redirect to the product page or any URL name
+        return redirect('product_section')  # Redirect after submission
 
     return redirect('product_section')

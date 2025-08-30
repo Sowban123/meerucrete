@@ -659,17 +659,7 @@ html::-webkit-scrollbar-thumb {
     justify-content: center;
   }
 
-  .pattern-card {
-    position: relative;
-    width: 440px;
-    height: 297px;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    background-size: cover;
-    background-position: center;
-    cursor: pointer;
-  }
+  
 
   .play-btn {
     position: absolute;

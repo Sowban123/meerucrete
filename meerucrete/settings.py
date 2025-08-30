@@ -164,10 +164,6 @@
 
 
 
-
-
-
-
 """
 Django settings for meerucrete project.
 """
@@ -175,28 +171,28 @@ Django settings for meerucrete project.
 import os
 from pathlib import Path
 import dj_database_url
+from decouple import config, Csv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-from pathlib import Path
-
+# Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv(
+SECRET_KEY = config(
     "DJANGO_SECRET_KEY",
-    "django-insecure-hpurq#x3_tnd_bogm!4+t$d*xurzv81owmzl3u#o%b612t84u+"
+    default="django-insecure-hpurq#x3_tnd_bogm!4+t$d*xurzv81owmzl3u#o%b612t84u+"
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DJANGO_DEBUG", "True") == "True"
+DEBUG = config("DJANGO_DEBUG", default="False") == "True"
 
-ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "localhost",
-    "www.merucrete.com",
-    "meerucrete-2.onrender.com",  # Render subdomain
-]
+# Allowed hosts (comma-separated in .env)
+ALLOWED_HOSTS = config(
+    "DJANGO_ALLOWED_HOSTS",
+    default="localhost,127.0.0.1",
+    cast=Csv()
+)
+
 
 # Application definition
 INSTALLED_APPS = [
@@ -211,7 +207,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",   # serve static files
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # serve static files
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -240,17 +236,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "meerucrete.wsgi.application"
 
+
 # Database settings
-INTERNAL_DB = "postgresql://postgres2:QhNSW16hwurVpWY50TrieLJQ2HhWN7a5@dpg-d2hu70fdiees73cl5130-a/merucrete_db"
-EXTERNAL_DB = "postgresql://postgres2:QhNSW16hwurVpWY50TrieLJQ2HhWN7a5@dpg-d2hu70fdiees73cl5130-a.oregon-postgres.render.com/merucrete_db"
-LOCAL_DB = "postgres://postgres:1234@localhost:5432/merucrete_db"
-
-DATABASE_URL = os.getenv("DATABASE_URL", LOCAL_DB)  # default to local DB when env var not set
-
+DATABASE_URL = config("DATABASE_URL", default=config("LOCAL_DB"))
 DATABASES = {
     "default": dj_database_url.parse(DATABASE_URL)
 }
- 
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -260,11 +252,13 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
+
 # Internationalization
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
+
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "/static/"
@@ -272,16 +266,17 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = "/opt/render/project/src/media"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Let WhiteNoise compress and cache static files
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
+
 # Email settings
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "nnahmed.1982@gmail.com"
-EMAIL_HOST_PASSWORD = "fclupabmpigmiwhj"   # Gmail app password
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_BACKEND = config("EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend")
+EMAIL_HOST = config("EMAIL_HOST", default="smtp.gmail.com")
+EMAIL_PORT = config("EMAIL_PORT", default=587, cast=int)
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
+EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default=EMAIL_HOST_USER)

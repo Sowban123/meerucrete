@@ -1,0 +1,1142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MeeruCrete Products</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{% static 'image/logonav.png' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Add this in the <head> of your HTML -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+ 
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f3f0eb, #e8e2d9, #f5f2ec);
+      color: #333; /* Changed from white to dark for better contrast */
+      font-family: 'Montserrat', Arial, sans-serif;
+      margin: 0;  
+      overflow-x: hidden;
+    }
+
+    /* ------------------------------ */
+    /* SCROLLBAR STYLES */
+    /* ------------------------------ */
+    html::-webkit-scrollbar {
+      width: 1rem;
+    }
+    html::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    html::-webkit-scrollbar-thumb {
+      background: var(--yellow);
+    }
+
+    /* ------------------------------ */
+    /* NAVBAR STYLES */
+    /* ------------------------------ */
+    .navbar {
+      background: linear-gradient(to right, #3d0017, #800033, #4f0022);
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      color: white;
+    }
+  
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0px;
+      font-size: 31px;
+      color: #ffffff;
+    }
+  
+    strong {
+      font-weight: 600;
+    }
+  
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+  
+    .logo img {
+      height: 90px;
+      max-width: 100%; /* Added for responsiveness */
+    }
+ 
+    .nav-links a {
+      margin-left: 30px;
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: rgb(245, 222, 179);
+      font-weight: bold;
+    }
+
+    .nav-links a.active {
+      color: rgb(245, 222, 179);
+      font-weight: bold;
+      border-bottom: 2px solid rgb(245, 222, 179);
+    }
+  
+    /* Dropdown menu styles */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #3d0017;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+      border-radius: 4px;
+    }
+
+    .dropdown-content a {
+      color: white;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      margin-left: 0;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #800033;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* ------------------------------ */
+    /* Mobile-specific Navbar Styles */
+    /* ------------------------------ */
+  
+    /* Between 900px and 250px */
+    @media (max-width: 900px)  {
+      /* Hide nav-links initially */
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #3d0017;
+        padding: 20px 0;
+        z-index: 1000;
+      }
+  
+      .nav-links a {
+        margin: 10px 0;
+      }
+
+      .dropdown-content {
+        position: static;
+        display: none;
+        background-color: transparent;
+        box-shadow: none;
+        text-align: center;
+      }
+      
+      .dropdown:hover .dropdown-content {
+        display: none;
+      }
+      
+      .dropdown.active .dropdown-content {
+        display: block;
+      }
+  
+      /* Show hamburger menu (only on mobile) */
+      .hamburger {
+        display: block;
+        background-color: transparent;
+        border: none;
+        color: #ffffff;
+        font-size: 30px;
+        cursor: pointer;
+      }
+  
+      /* When navbar is active, show nav-links */
+      .navbar.active .nav-links {
+        display: flex;
+      }
+    }
+  
+    /* Remove nav-links after 900px */
+    @media (min-width: 901px) {
+      .nav-links {
+        display: flex !important;
+      }
+  
+      /* Show hamburger button only on smaller screens */
+      .hamburger {
+        display: none !important;
+      }
+    }
+  
+    /* For screens between 201px and 300px */
+    @media (max-width: 400px) and (min-width: 301px) {
+      .nav-links {
+        flex-direction: column;
+        font-size: 10px;
+      }
+      .logo {
+        font-size: 18px;
+      }
+      .nav-links a {
+        margin: 8px 0;
+        font-size: 14px;
+      }
+
+      .logo img {
+        height: 27px;
+      }
+
+      .logo span {
+        font-size: 1.2rem;
+      }
+
+      .hamburger {
+        font-size: 25px;
+      }
+    }
+  
+    /* For screens between 201px and 300px */
+    @media (max-width: 300px) and (min-width: 250px) {
+      .nav-links {
+        flex-direction: column;
+        font-size: 10px;
+      }
+      .logo {
+        font-size: 18px;
+      }
+      .nav-links a {
+        margin: 8px 0;
+        font-size: 14px;
+      }
+
+      .logo img {
+        height: 27px;
+      }
+
+      .logo span {
+        font-size: 1.2rem;
+      }
+
+      .hamburger {
+        font-size: 25px;
+      }
+    }
+
+    @media (max-width: 250px) and (min-width: 201px) {
+      .logo {
+        font-size: 18px;
+      }
+     
+      .logo img {
+        height: 21px;
+      }
+
+      .logo span {
+        font-size: 1rem;
+      }
+
+      .hamburger {
+        font-size: 25px;
+      }
+    }
+
+    /* For screens between 101px and 200px */
+    @media (max-width: 201px) and (min-width: 101px) {
+      .nav-links {
+        flex-direction: column;
+        font-size: 8px;
+      }
+
+      .nav-links a {
+        margin: 6px 0;
+        font-size: 12px;
+      }
+
+      .logo img {
+        height: 26px;
+      }
+      
+      .logo span {
+        font-size: 8px;
+      }
+      
+      .hamburger {
+        font-size: 22px;
+      }
+    }
+
+    /* For screens 100px and below */
+    @media (max-width: 100px) {
+      .nav-links {
+        flex-direction: column;
+        font-size: 10px;
+      }
+
+      .nav-links a {
+        margin: 4px 0;
+        font-size: 10px;
+      }
+
+      .logo img {
+        max-height: 25px;
+      }
+
+      .logo span {
+        font-size: 0.9rem;
+      }
+
+      .hamburger {
+        font-size: 24px;
+      }
+    }
+
+    /* Custom heading styles */
+    .custom-heading {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .custom-heading h2 {
+      font-size: 2.5rem;
+      color: #881b35;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .custom-heading {
+        padding: 30px 15px;
+      }
+      
+      .custom-heading h2 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .custom-heading {
+        padding: 20px 10px;
+      }
+      
+      .custom-heading h2 {
+        font-size: 1.75rem;
+      }
+    }
+
+    /* ================================
+       PROJECT SECTION STYLES
+    ================================ */
+    .project-section { 
+      max-width: 1300px; 
+      margin: auto; 
+      padding: 40px 20px; 
+      display: flex; 
+      flex-wrap: wrap; 
+      gap: 40px; 
+      align-items: center; 
+      box-sizing: border-box;
+    }
+    
+    .project-images { 
+      flex: 1 1 400px; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 20px; 
+      min-width: 0;
+    }
+    
+    .project-images img { 
+      width: 100%; 
+      height: auto;
+      border-radius: 8px; 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+      object-fit: cover; /* Added for better image scaling */
+    }
+    
+    .project-content { 
+      flex: 1 1 400px; 
+      min-width: 0;
+    }
+    
+    .project-content h1, .project-content h2 { 
+      color: #881b35; 
+      margin-bottom: 20px; 
+    }
+    
+    .project-content h1 {
+      font-size: 2rem;
+    }
+    
+    .project-content h2 {
+      font-size: 1.5rem;
+    }
+    
+    .project-content p { 
+      font-size: 16px; 
+      line-height: 1.6; 
+      margin-bottom: 20px; 
+      color: #333; /* Added for better contrast */
+    }
+    
+    .project-content ul { 
+      list-style: none; 
+      padding: 0; 
+      font-size: 16px; 
+    }
+    
+    .project-content ul li { 
+      margin-bottom: 15px; 
+      padding-left: 25px; 
+      position: relative; 
+      color: #333; /* Added for better contrast */
+    }
+    
+    .project-content ul li span { 
+      position: absolute; 
+      left: 0; 
+      color: #f4a742; 
+    }
+    
+  .back-btn { 
+  display: inline-block; 
+  background: #881b35; 
+  color: #fff; 
+  padding: 12px 24px; 
+  border-radius: 5px; 
+  text-decoration: none; 
+  margin-top: 20px; 
+  transition: background 0.3s; 
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+}
+
+.back-btn:hover { 
+  background: #4d0218; 
+}
+.back-btn,
+.back-btn:hover,
+.back-btn:focus,
+.back-btn:active {
+  text-decoration: none !important;
+  outline: none;
+  color: #fff; /* keep text white */
+}
+
+    /* Responsive adjustments for project section */
+    @media (max-width: 1024px) {
+      .project-section {
+        gap: 30px;
+        padding: 30px 20px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .project-section { 
+        flex-direction: column; 
+        padding: 30px 15px;
+        gap: 25px;
+      }
+      
+      .project-content h1 {
+        font-size: 1.75rem;
+      }
+      
+      .project-content h2 {
+        font-size: 1.35rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .project-section {
+        padding: 20px 15px;
+        gap: 20px;
+      }
+      
+      .project-content h1 {
+        font-size: 1.5rem;
+      }
+      
+      .project-content h2 {
+        font-size: 1.25rem;
+      }
+      
+      .project-content p,
+      .project-content ul {
+        font-size: 10px;
+      }
+      
+      .back-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* ================================
+       UNIVERSAL FOOTER SECTION
+    ================================ */
+
+    /* Background */
+    .retirement-footer {
+      background-image: url("/static/image/footer.png");
+      background-size: cover;
+      background-position: center;
+      height: auto;
+      padding: 3rem 1rem;
+      color: white;
+      text-align: center;
+    }
+
+    /* Footer Logo/Image */
+    .retirement-footer .footer-logo,
+    img.mb-3 {
+      width: 20%;
+      height: auto;
+      margin-bottom: 1rem;
+      max-width: 150px; /* Added for responsiveness */
+    }
+
+    /* Footer Main Heading */
+    #mu {
+      font-size: 3rem;
+      color: #b88d02;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Shining Gradient Text Animation */
+    .retirement-shine-text {
+      font-weight: bold;
+      font-size: 1.5rem;
+      background: linear-gradient(90deg,
+        #ffffff 0%,
+        #ffcc70 20%,
+        #ffffff 40%,
+        #ffcc70 60%,
+        #ffffff 80%);
+      background-size: 200% auto;
+      color: #b88d02;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: retirement-shine 6s linear infinite;
+      margin-bottom: 0.3rem;
+    }
+
+    /* Animation Keyframes */
+    @keyframes retirement-shine {
+      to {
+        background-position: 200% center;
+      }
+    }
+
+    /* Tagline */
+    .retirement-footer p {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #f0f0f0;
+    }
+
+    /* Social Icons Container */
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap; /* Added for responsiveness */
+    }
+
+    /* Social Icon Links */
+    .social-icons a {
+      margin: 0 15px;
+      font-size: 1.8rem;
+      color: white;
+      transition: transform 0.3s, color 0.3s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    /* Hover Effects */
+    .social-icons a:hover {
+      transform: scale(1.2);
+      color: #ffcc70;
+    }
+
+    /* Copyright */
+    .retirement-footer p.text-white {
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    /* ================================
+       RESPONSIVE FOOTER STYLES
+    ================================ */
+
+    @media (max-width: 768px) {
+      .retirement-footer .footer-logo,
+      img.mb-3 {
+        width: 40%;
+      }
+
+      #mu {
+        font-size: 2.2rem;
+      }
+
+      .retirement-shine-text {
+        font-size: 1.2rem;
+      }
+
+      .social-icons a {
+        font-size: 1.5rem;
+        margin: 0 12px;
+      }
+
+      .retirement-footer p {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .retirement-footer .footer-logo,
+      img.mb-3 {
+        width: 60%;
+      }
+
+      #mu {
+        font-size: 1.8rem;
+      }
+
+      .retirement-shine-text {
+        font-size: 1rem;
+      }
+
+      .social-icons a {
+        font-size: 1.3rem;
+        margin: 0 10px;
+      }
+
+      .retirement-footer p {
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 320px) {
+      .retirement-footer .footer-logo,
+      img.mb-3 {
+        width: 80%;
+      }
+
+      #mu {
+        font-size: 1.5rem;
+      }
+
+      .retirement-shine-text {
+        font-size: 0.9rem;
+      }
+
+      .social-icons a {
+        font-size: 1.1rem;
+        margin: 0 8px;
+      }
+
+      .retirement-footer p {
+        font-size: 0.8rem;
+      }
+    }
+    
+    .footer-text {
+      margin: 0;
+      padding: 0;
+      line-height: 1.2;
+    }
+
+    .footer-text p {
+      margin: 0;
+      padding: 0;
+      font-size: 1rem;
+      color: white;
+    }
+
+    /* Slightly lighter color for the developer name */
+    .footer-text p:last-child {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+      margin-top: 0.2rem;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 576px) {
+      .footer-text p {
+        font-size: 0.8rem;
+      }
+
+      .footer-text p:last-child {
+        font-size: 0.67rem;
+      }
+    }
+
+    /* Preloader Base */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #f3f0eb, #e8e2d9, #f5f2ec);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+    
+    /* Rotating Border */
+    .loader-outer {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 5px solid transparent;
+      border-top: 5px solid #d4452d;
+      border-right: 5px solid #d4452d;
+      animation: rotate 1.5s linear infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* Circular Border */
+    .loader-circle {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f3f0eb, #e8e2d9, #f5f2ec);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 10px;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    /* Logo in Center */
+    .loader-logo {
+      max-width: 80px;
+      height: auto;
+      margin-bottom: 5px;
+    }
+
+    /* MEERU CRETE Text */
+    .loader-text {
+      font-size: 16px;
+      font-weight: bold;
+      color: #222;
+      letter-spacing: 1px;
+      margin-bottom: 2px;
+    }
+
+    /* Loading... Text */
+    .loader-subtext {
+      font-size: 12px;
+      font-weight: 600;
+      color: #a13b2b;
+    }
+
+    /* Animation */
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* Back to Top */
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: none;
+      background: linear-gradient(to right, #bfa53a, #ffdf00, #b8860b);
+      color: rgb(59, 0, 0);
+      border: none;
+      border-radius: 50%;
+      padding: 10px 20px;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 1000;
+      transition: background 0.3s;
+    }
+
+    #backToTop:hover {
+      background-color: #444;
+    }
+
+    /* ✅ Responsive Adjustments */
+    @media (max-width: 768px) {
+      #backToTop {
+        bottom: 20px;
+        right: 20px;
+        font-size: 18px;
+        padding: 8px 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #backToTop {
+        bottom: 15px;
+        right: 15px;
+        font-size: 16px;
+        padding: 6px 14px;
+      }
+    }
+
+    @media (max-width: 320px) {
+      #backToTop {
+        bottom: 10px;
+        right: 10px;
+        font-size: 14px;
+        padding: 5px 12px;
+      }
+    }
+    
+.custom-heading {
+  text-align: center;
+ 
+  padding: 60px 20px;
+  max-width: 100%;
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+
+  /* Background image */
+  background-image: url("https://i.pinimg.com/1200x/d3/1e/3b/d31e3bd11d6241b212ce764641adbe72.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ✅ Overlay */
+.custom-heading::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  border-radius: 10px;
+  z-index: 1;
+}
+
+/* ✅ Text stays above overlay */
+.custom-heading h2,
+.custom-heading p {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+}
+
+/* Main Heading */
+.custom-heading h2 {
+  font-size: clamp(28px, 6vw, 48px);
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.2;
+  text-align: center;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.custom-heading h2::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: #ffd900;
+  margin: 10px auto 0;
+  border-radius: 10px;
+}
+
+/* Paragraph */
+.custom-heading p {
+  font-size: clamp(14px, 3vw, 18px);
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+}
+
+/* ✅ Responsive Adjustments */
+@media (max-width: 768px) {
+  .custom-heading {
+    padding: 40px 15px;
+  }
+
+  .custom-heading h2::after {
+    width: 60px;
+    height: 3px;
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-heading {
+    padding: 30px 10px;
+    margin: 40px auto 20px;
+  }
+
+  .custom-heading h2 {
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+
+  .custom-heading p {
+    font-size: 14px;
+  }
+}
+
+/* Series title inside .text-box */
+.text-box h1 {
+  font-size: clamp(24px, 5vw, 36px);
+  color: #4d0701;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 2px #ccc;
+  text-align: center;
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  font-weight: normal;
+  line-height: 1.2;
+}
+
+/* Optional: Responsive adjustments for smaller screens */
+@media (max-width: 480px) {
+  .custom-heading h2 {
+    letter-spacing: 1px;
+    font-size: clamp(20px, 7vw, 28px);
+  }
+  .custom-heading p {
+    font-size: 14px;
+    padding: 0 10px;
+  }
+  .text-box h1 {
+    font-size: clamp(18px, 6vw, 24px);
+    letter-spacing: 0.5px;
+    padding: 0 10px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <!-- Custom Preloader -->
+  <div id="loader">
+    <div class="loader-circle">
+      <img src="{% static 'image/logo.png' %}" alt="Meeru Logo" class="loader-logo">
+      <div class="loader-subtext">LOADING...</div>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" title="Back to Top">↑</button>
+  
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <!-- Logo with link -->
+        <a href="{% url 'home' %}" class="flex items-center" style="text-decoration:none; color:inherit;">
+          <img src="{% static 'image/logonav.png' %}" alt="Logo" />
+          <span>MERU <strong>CRETE</strong></span>
+        </a>
+      </div>
+
+      <!-- Hamburger Icon (Visible on mobile) -->
+      <button class="hamburger" onclick="toggleNavbar()">&#9776;</button>
+
+      <!-- Navigation Links -->
+      <nav class="nav-links">
+        <a href="/" class="{% if request.path == '/' %}active{% endif %}" id="home">Home</a>
+        <div class="dropdown">
+          <a href="#" class="{% if request.path|slice:":8" == '/product' %}active{% endif %}">Product ▾</a>
+          <div class="dropdown-content">
+            <a href="/products" class="{% if request.path == '/products' %}active{% endif %}">Collection</a>
+            <a href="/product-catalogue" class="{% if request.path == '/product-catalogue' %}active{% endif %}">Catalogue</a>
+          </div>
+        </div>
+        <a href="/about" class="{% if request.path|slice:":6" == '/about' %}active{% endif %}">About Us</a>
+        <a href="/contact" class="{% if request.path|slice:":8" == '/contact' %}active{% endif %}">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="custom-heading">
+    <h2>{{ project.title }}</h2>
+  </section>
+
+  <!-- Main Section: Left Image, Right Content -->
+  <section class="project-section">
+    <div class="project-images">
+      <img src="{{ project.image.url }}" alt="{{ project.title }}">
+    </div>
+    <div class="project-content" data-aos="fade-left">
+
+      <p>{{ project.short_description }}</p>
+      {% if features_list %}
+      <ul>
+        {% for feature in features_list %}
+        <li><span>✔</span> {{ feature }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- Additional Images with Zig-Zag Layout -->
+  {% for img in project.additional_images.all %}
+  <section class="project-section">
+    {% if forloop.counter|divisibleby:2 %}
+      <!-- Left Image, Right Content -->
+      <div class="project-images">
+        <img src="{{ img.image.url }}" alt="{{ project.title }} additional">
+      </div>
+      <div class="project-content" data-aos="fade-left">
+        <h2>More Details</h2>
+        
+        <p>{{ project.full_description }}</p>
+      </div>
+    {% else %}
+      <!-- Right Image, Left Content -->
+      <div class="project-content">
+        <h2>More Details</h2>
+        <p>{{ project.full_description }}</p>
+      </div>
+      <div class="project-images">
+        <img src="{{ img.image.url }}" alt="{{ project.title }} additional">
+      </div>
+    {% endif %}
+  </section>
+  {% endfor %}
+
+  <div style="text-align:center; margin:40px 0 50px; padding:0 15px;">
+    <a href="{% url 'project_list' %}" class="back-btn">⬅ Back to Projects</a>
+  </div>
+
+  <!-- Footer Section -->
+  <section>
+    <div class="retirement-footer text-center py-5">
+      <!-- Footer Logo -->
+      <img src="{% static 'image/footerlogo.png' %}" alt="MeeruCrete Logo" class="footer-logo mb-3">
+
+      <!-- Brand Name with Shine Effect -->
+      <h5 class="retirement-shine-text mb-2" id="mu">MERU CRETE</h5>
+      <p>where strength meets precision</p>
+
+      <!-- Social Icons -->
+      <div class="social-icons">
+        <a href="#" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" aria-label="Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" aria-label="Twitter">
+          <i class="fab fa-x-twitter"></i>
+        </a>
+      </div>
+
+      <!-- Copyright -->
+      <div class="footer-text">
+        <p>© 2025 MeeruCrete | All Rights Reserved</p>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/js/lightgallery.min.js"></script>
+  <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+
+    // Toggle navbar function
+    function toggleNavbar() {
+      document.querySelector('.navbar').classList.toggle('active');
+    }
+
+    // Mobile dropdown functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const dropdowns = document.querySelectorAll('.dropdown > a');
+      
+      dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', function(e) {
+          if (window.innerWidth <= 900) {
+            e.preventDefault();
+            this.parentElement.classList.toggle('active');
+          }
+        });
+      });
+    });
+
+    // Hide loader after page loads
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loader');
+      if (loader) {
+        loader.style.opacity = '0';
+        setTimeout(() => loader.style.display = 'none', 500);
+      }
+    });
+
+    // Back to Top functionality
+    const backToTopBtn = document.getElementById("backToTop");
+    if (backToTopBtn) {
+      window.onscroll = () => {
+        backToTopBtn.style.display =
+          (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "block" : "none";
+      };
+
+      backToTopBtn.onclick = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+    }
+  </script>
+</body>
+</html>

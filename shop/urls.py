@@ -8,5 +8,7 @@ urlpatterns = [
     path('product-catalogue/', views.product_catalogue_view, name='product_catalogue'),
     path('products/', views.product_section, name='product_section'),  # Note the URL '/products/' here
     path('submit-enquiry/', views.save_enquiry, name='save_enquiry'),  # This should be here too
+    path('projects/', views.project_list, name='project_list'),
+    path('projects/<int:pk>/', views.project_detail, name='project_detail'),
 ]
 

@@ -878,34 +878,40 @@ img.mb-3 {
 
 <!-- Back to Top Button -->
 <button id="backToTop" title="Back to Top">↑</button>
-  <!-- Navbar -->
+<!-- Navbar -->
 <header class="navbar">
   <div class="nav-container">
+    
+    <!-- Logo -->
     <div class="logo">
-      <!-- Logo Image -->
-      <img src="{% static 'image/logonav.png' %}" alt="Logo" />
-      <span>MERU <strong>CRETE</strong></span>
-    </div>
+      <!-- Logo with link -->
+      <a href="{% url 'home' %}" class="flex items-center" style="text-decoration:none; color:inherit;">
+  <img src="{% static 'image/logonav.png' %}" alt="Logo" />
+  <span>MERU <strong>CRETE</strong></span>
+   </a>
+
+    </div> <!-- ✅ properly closed -->
 
     <!-- Hamburger Icon (Visible on mobile) -->
     <button class="hamburger" onclick="toggleNavbar()">&#9776;</button>
 
     <!-- Navigation Links -->
-<nav class="nav-links">
-  <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
- <div class="dropdown">
-    <a href="#" class="{% if request.path|slice:":8" == '/product' %}active{% endif %}">Product ▾</a>
-    <div class="dropdown-content">
-      <a href="/products" class="{% if request.path == '/products' %}active{% endif %}">collection</a>
-    <a href="/product-catalogue" class="{% if request.path == '/product-catalogue' %}active{% endif %}">Catalogue</a>
-    </div>
-  </div>
-  <a href="/about" class="{% if request.path|slice:":6" == '/about' %}active{% endif %}">About Us</a>
-  <a href="/contact" class="{% if request.path|slice:":8" == '/contact' %}active{% endif %}">Contact Us</a>
-</nav>
+    <nav class="nav-links">
+      <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+      <div class="dropdown">
+        <a href="#" class="{% if request.path|slice:":8" == '/product' %}active{% endif %}">Product ▾</a>
+        <div class="dropdown-content">
+          <a href="/products" class="{% if request.path == '/products' %}active{% endif %}">Collection</a>
+          <a href="/product-catalogue" class="{% if request.path == '/product-catalogue' %}active{% endif %}">Catalogue</a>
+        </div>
+      </div>
+      <a href="/about" class="{% if request.path|slice:":6" == '/about' %}active{% endif %}">About Us</a>
+      <a href="/contact" class="{% if request.path|slice:":8" == '/contact' %}active{% endif %}">Contact Us</a>
+    </nav>
 
   </div>
 </header>
+
 
 
 

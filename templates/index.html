@@ -335,14 +335,19 @@ body::-webkit-scrollbar-thumb {
   border-radius: 16px;
 }
 .carousel-text {
-    position: absolute;
-    bottom: 20px;
-    left: 30px;
-    font-size: 34px;
-    color: #320008;
-    font-weight: 500;
-    z-index: 2;
+  position: absolute;
+  border-radius: 1rem;
+  bottom: 20px;
+  left: 30px;
+  font-size: 34px;
+  color: #fff;
+  font-weight: 300;
+  z-index: 2;
+  padding: 4px 10px;
+  background: linear-gradient(90deg, #461626, #7a1d32);
+  box-decoration-break: clone;
 }
+
 @media (max-width: 1300px) {
   .wide-category-section h2,
   #wide {
@@ -473,9 +478,8 @@ body::-webkit-scrollbar-thumb {
     height: 180px;
   }
 }
-.small-pattern {
-    border: 2px solid #461626;
-}
+
+
 
 @media (max-width: 400px) {
   .wide-category-section h2,
@@ -487,7 +491,7 @@ body::-webkit-scrollbar-thumb {
     height: 160px;
   }
   .carousel-text {
-        font-size: 13px;
+        font-size: 8px;
     }
         .small-pattern {
         width: 66px;
@@ -499,9 +503,7 @@ body::-webkit-scrollbar-thumb {
         padding: 0 10px;
     }
 }
-.small-pattern {
-    border: 2px solid #461626;
-}
+
 @media (max-width: 300px) {
   .wide-category-section h2,
   #wide {
@@ -512,7 +514,7 @@ body::-webkit-scrollbar-thumb {
     height: 140px;
   }
   .carousel-text {
-        font-size: 12px;
+        font-size: 5px;
     }
         .small-pattern {
         width: 66px;
@@ -538,7 +540,7 @@ body::-webkit-scrollbar-thumb {
     height: 120px;
   }
   .carousel-text {
-        font-size: 10px;
+        font-size: 3px;
     }
     .small-pattern {
     border: 2px solid #461626;
@@ -763,19 +765,19 @@ body::-webkit-scrollbar-thumb {
 }
 
 .hover-content {
-  position: absolute;
-  bottom: 10px;
-  left: 8px;
-  right: 8px;
-  height:120px;
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  border-radius: 0 0 15px 15px;
-  padding: 12px 15px;
-  font-size: 14px;
-  transform: translateY(100%);
-  opacity: 0;
-  transition: all 0.3s ease;
+    position: absolute;
+    bottom: 10px;
+    left: 8px;
+    right: 8px;
+    height:120px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    border-radius: 0 0 15px 15px;
+    padding: 12px 15px;
+    font-size: 14px;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: all 0.3s ease;
 }
 
 .product-card:hover .hover-content {
@@ -877,8 +879,8 @@ body::-webkit-scrollbar-thumb {
 /* 400px */
 @media (max-width: 400px) {
   .product-card {
-    width: 200px;
-    height: 200px;
+    width: 280px;
+    height: 220px;
   }
 }
 
@@ -1332,6 +1334,17 @@ body::-webkit-scrollbar-thumb {
 
 /* VIDEO SECTIO RESPONSIVE  */
 
+.pattern-card {
+    position: relative;
+    width: 440px;
+    height: 247px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+  }
 @media (max-width: 1200px) {
   .pattern-card {
     width: 400px;
@@ -2155,20 +2168,26 @@ font-size: 2rem;
 
 @media (max-width: 350px) {
   .slider-wrapper { width: 85%; height: 38vh; margin: 0 auto;  margin-top: 1.5rem;}
+  .slide-content p { font-size: 11px; }
+        .shape-tri, .shape-circ, .shape-boxy {
+        width: 182px;
+        height: 131px;
+        margin-top: -2rem;
+    }
 }
 
 @media (max-width: 320px) {
-  .slider-wrapper { width: 84%; height: 36vh; margin: 0 auto;  margin-top: 1.5rem;}
+  .slider-wrapper { width: 95%; height: 46vh; margin: 0 auto;  margin-top: 1.5rem;}
    .slide-content h2 { font-size: 15px; }
-  .slide-content p { font-size: 11px; }
-      .shape-tri, .shape-circ, .shape-boxy {
-        width: 140px;
-        height: 98px;
+ .slide-content p { font-size: 11px; }
+        .shape-tri, .shape-circ, .shape-boxy {
+        width: 182px;
+        height: 131px;
         margin-top: -2rem;
     }
 }
 @media (max-width: 300px) {
-  .slider-wrapper { width: 83%; height: 35vh; }
+  .slider-wrapper { width: 90%; height: 35vh; }
 
       .slide-content p {
         font-size: 7px;
@@ -2474,6 +2493,30 @@ font-size: 2rem;
 .dropdown:hover .dropdown-content {
   display: block;
 }
+.product-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.6s ease;
+}
+
+.product-card img {
+  width: 100%;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+/* When hover in → rotate */
+.product-card:hover img {
+  transform: rotateY(180deg) scale(1.05);
+}
+
+/* When hover out → rotate back smoothly */
+.product-card img {
+  transform: rotateY(0deg);
+}
+
 
 
 </style>
@@ -2492,34 +2535,37 @@ font-size: 2rem;
 <!-- Back to Top Button -->
 <button id="backToTop" title="Back to Top">↑</button>
 
-  <!-- Navbar -->
+<!-- Navbar -->
 <header class="navbar">
   <div class="nav-container">
     <div class="logo">
-      <!-- Logo Image -->
-      <img src="{% static 'image/logonav.png' %}" alt="Logo" />
-      <span>MERU <strong>CRETE</strong></span>
+      <!-- Logo with link -->
+      <a href="{% url 'home' %}" class="flex items-center" style="text-decoration:none; color:inherit;">
+  <img src="{% static 'image/logonav.png' %}" alt="Logo" />
+  <span>MERU <strong>CRETE</strong></span>
+   </a>
+
     </div>
 
     <!-- Hamburger Icon (Visible on mobile) -->
     <button class="hamburger" onclick="toggleNavbar()">&#9776;</button>
 
     <!-- Navigation Links -->
-<nav class="nav-links">
-  <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
- <div class="dropdown">
-    <a href="#" class="{% if request.path|slice:":8" == '/product' %}active{% endif %}">Product ▾</a>
-    <div class="dropdown-content">
-      <a href="/products" class="{% if request.path == '/products' %}active{% endif %}">collection</a>
-    <a href="/product-catalogue" class="{% if request.path == '/product-catalogue' %}active{% endif %}">Catalogue</a>
-    </div>
-  </div>
-  <a href="/about" class="{% if request.path|slice:":6" == '/about' %}active{% endif %}">About Us</a>
-  <a href="/contact" class="{% if request.path|slice:":8" == '/contact' %}active{% endif %}">Contact Us</a>
-</nav>
-
+    <nav class="nav-links">
+      <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+      <div class="dropdown">
+        <a href="#" class="{% if request.path|slice:":8" == '/product' %}active{% endif %}">Product ▾</a>
+        <div class="dropdown-content">
+          <a href="/products" class="{% if request.path == '/products' %}active{% endif %}">Collection</a>
+          <a href="/product-catalogue" class="{% if request.path == '/product-catalogue' %}active{% endif %}">Catalogue</a>
+        </div>
+      </div>
+      <a href="/about" class="{% if request.path|slice:":6" == '/about' %}active{% endif %}">About Us</a>
+      <a href="/contact" class="{% if request.path|slice:":8" == '/contact' %}active{% endif %}">Contact Us</a>
+    </nav>
   </div>
 </header>
+
 
 
 
@@ -2544,18 +2590,18 @@ font-size: 2rem;
   </div>
 
 
-<section class="product-section" data-aos="fade-up" data-aos-duration="1500">
+<section class="product-section" data-aos="slide-right" data-aos-duration="2500">
   <h2 id="tre">Trending Products</h2>
   <div class="product-grid">
     <div class="product-card">
       <img src="https://i.pinimg.com/474x/15/ce/a0/15cea06c4870432c9872e7b6be6f0ddb.jpg" alt="Product 1">
       <div class="hover-content">
         <h6>MADRAID</h6>
-        <p>Size: 24" x 24"<br>Thickness: 27 mm<br>Weight: 13.69kg / sq.ft</p>
+        <p>Size: 24" x 24"<br>Thickness: 27 mm<br>Weight: 13.69kg / sq.ft </p>
       </div>
     </div>
 
-    <div class="product-card">
+    <div class="product-card " data-aos="flip-right" data-aos-duration="2500">
       <img src="https://i.pinimg.com/474x/12/f9/fe/12f9fe1ae12f6df29a2c923a4a86b433.jpg" alt="Product 2">
       <div class="hover-content">
         <h6>SPLENDOR GREY</h6>
@@ -2563,7 +2609,7 @@ font-size: 2rem;
       </div>
     </div>
 
-    <div class="product-card">
+    <div class="product-card"data-aos="slide-right" data-aos-duration="2500">
       <img src="https://i.pinimg.com/474x/bf/ed/ca/bfedcadc1b0f1e9b36fe550a2d57092b.jpg" alt="Product 3">
       <div class="hover-content">
         <h6>BRITISH BRICK</h6>
@@ -2571,11 +2617,11 @@ font-size: 2rem;
       </div>
     </div>
 
-    <div class="product-card">
+    <div class="product-card"data-aos="flip-right" data-aos-duration="2500" >
       <img src="https://i.pinimg.com/474x/ec/17/d9/ec17d9022ae9aa90465930aeb8a5550d.jpg" alt="Product 4">
       <div class="hover-content">
         <h6>ANTIQUE BEIGE</h6>
-        <p>Size: 24" x 24"<br>Thickness: 30 mm<br>Weight: 14.20kg / sq.ft</p>
+        <p>Size: 24" x 24"<br>Thickness: 30 mm<br>Weight: 14.20kg / sq.ft</p> 
       </div>
     </div>
   </div> <!-- close product-grid -->
@@ -2657,37 +2703,29 @@ font-size: 2rem;
       <!-- Slide 1 -->
       <div class="carousel-slide active"
         style="background-image: url('https://images.unsplash.com/photo-1507089947368-19c1da9775ae');">
-        <div class="small-pattern"
-          style="background-image: url('https://www.pioneerbricks.com/wp-content/uploads/2020/12/antique-cladding-stone-design-768x513.jpg');">
-        </div>
+        
         <div class="carousel-text">Castle Set Pattern</div>
       </div>
 
       <!-- Slide 2 -->
       <div class="carousel-slide"
-        style="background-image: url('https://i.pinimg.com/736x/6d/db/5d/6ddb5d729fd46c11b76bdaf5bd1daf30.jpg');">
-        <div class="small-pattern"
-          style="background-image: url('https://www.pioneerbricks.com/wp-content/uploads/2020/11/antique-british-brick-cladding-768x576.jpg');">
-        </div>
+        style="background-image: url('https://admin.simpolo.com/uploads/media/blogs/oxidize-smoke.jpg');">
+       
         <div class="carousel-text">Modern Brick Wall</div>
       </div>
-            <!-- Slide 2 -->
+       <!-- Slide 2 -->
       <div class="carousel-slide"
-        style="background-image: url('https://i.pinimg.com/736x/6d/db/5d/6ddb5d729fd46c11b76bdaf5bd1daf30.jpg');">
-        <div class="small-pattern"
-          style="background-image: url('https://www.pioneerbricks.com/wp-content/uploads/2020/11/antique-british-brick-cladding-768x576.jpg');">
-        </div>
+        style="background-image: url('https://i.pinimg.com/1200x/47/78/42/47784230974f1d713f4a2ed6de6029af.jpg');">
+        
         <div class="carousel-text">Modern Brick Wall</div>
       </div>
-            <!-- Slide 2 -->
+       <!-- Slide 2 -->
       <div class="carousel-slide"
-        style="background-image: url('https://i.pinimg.com/736x/6d/db/5d/6ddb5d729fd46c11b76bdaf5bd1daf30.jpg');">
-        <div class="small-pattern"
-          style="background-image: url('https://www.pioneerbricks.com/wp-content/uploads/2020/11/antique-british-brick-cladding-768x576.jpg');">
-        </div>
+        style="background-image: url('https://www.supergres.com/media/__sized__/media_articles/gallery/image/Purity_Elite_Hall_CalacattaGreen_DD22-crop-c0-5__0-5-1650x700-70.jpg');">
         <div class="carousel-text">Modern Brick Wall</div>
       </div>
-
+     
+     
       <!-- Buttons -->
       <div class="carousel-controls">
         <button onclick="prevSlide()">&#8592;</button>
@@ -2849,39 +2887,24 @@ font-size: 2rem;
 
 
   
-  <!-- Project section -->
-  <section class="projects-section"data-aos="fade-up" data-aos-duration="1500">
-    <h2 class="projects-heading" id="our">Our Projects</h2>
-    <div class="projects-container">
-
-      <div class="project-card">
-        <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW5jSrH0q-8OkMKfszmqXuzL9On3QKh0Y_ag&s"
-          alt="Rustic Outdoor Fireplace" class="project-image">
-        <div class="project-content">
-          <h3 class="project-title">Rustic Outdoor Fireplace Transformation</h3>
-          <p class="project-description">
-            Add sophistication to your living room with a sleek accent wall made from our contemporary cultured stone
-            collection...
-          </p>
-          <a href="#" class="read-more">Read More <span>➤</span></a>
-        </div>
+<section class="projects-section" data-aos="fade-up" data-aos-duration="1500">
+  <h1 class="projects-heading" id="our">Our Projects</h1>
+  <div class="projects-container">
+    {% for project in projects %}
+    <div class="project-card">
+      <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-image">
+      <div class="project-content">
+        <h3 class="project-title">{{ project.title }}</h3>
+        <p class="project-description short">{{ project.short_description|truncatechars:100 }}</p>
+        <a href="{% url 'project_detail' project.pk %}" class="read-more">
+          Read More <span>➤</span>
+        </a>
       </div>
-
-      <div class="project-card">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW5jSrH0q-8OkMKfszmqXuzL9On3QKh0Y_ag&s"
-          alt="Traditional Court Yard" class="project-image">
-        <div class="project-content">
-          <h3 class="project-title">Traditional Court Yard Room Accent Wall</h3>
-          <p class="project-description">
-            Bring warmth and charm to your backyard with our premium rustic cultured stones...
-          </p>
-          <a href="#" class="read-more">Read More <span>➤</span></a>
-        </div>
-      </div>
-
     </div>
-  </section>
+    {% endfor %}
+  </div>
+</section>
+
 
 
 
@@ -2893,13 +2916,13 @@ font-size: 2rem;
     <h1 id="unique">Our Unique Patterns</h1>
 
     <div id="unique-patterns-container">
-      <div class="pattern-card" id="card-1-pattern" data-video="https://youtu.be/_n5o9-bIGT8?si=S5lc0P1uedfMdTNN">
+      <div class="pattern-card" id="card-1-pattern" data-video="https://youtu.be/ZmyZ6Aks64w?si=m4wDOqbw7L6Nb3--">
         <div class="play-btn"></div>
       </div>
-      <div class="pattern-card" id="card-2-pattern" data-video="https://youtu.be/_n5o9-bIGT8?si=S5lc0P1uedfMdTNN">
+      <div class="pattern-card" id="card-2-pattern" data-video="https://youtu.be/ZmyZ6Aks64w?si=m4wDOqbw7L6Nb3--">
         <div class="play-btn"></div>
       </div>
-      <div class="pattern-card" id="card-3-pattern" data-video="https://youtu.be/_n5o9-bIGT8?si=S5lc0P1uedfMdTNN">
+      <div class="pattern-card" id="card-3-pattern" data-video="https://youtu.be/ZmyZ6Aks64w?si=m4wDOqbw7L6Nb3--">
         <div class="play-btn"></div>
       </div>
     </div>
@@ -2912,7 +2935,8 @@ font-size: 2rem;
       </div>
     </div>
 
-
+<br>
+<br>
  </section>
 
     <!-- Profile Thumbnails -->
@@ -2976,7 +3000,7 @@ font-size: 2rem;
 
  
   <section class="branches-section"data-aos="fade-up" data-aos-duration="1500" >
-    <h2 id="branch">Our Branches</h2>
+    
     <div class="cards-container">
 
       <!-- Card 1 -->
@@ -2984,9 +3008,9 @@ font-size: 2rem;
         <div class="icon-circle">
           <img src="{% static 'image/location2.png' %}" alt="Location Icon">
         </div>
-        <h3>Bangalore, Karnataka</h3>
+        <h3>Corporate Office </h3>
         <p class="phone">+91 8825813923</p>
-        <p class="email">infro@meerucrete.com</p>
+        <p class="email">merucreteblr@gmail.com</p>
         <div class="address">
           317-D 10th main road Harohalli Industrial Area,<br>Karnataka
         </div>
@@ -2999,7 +3023,7 @@ font-size: 2rem;
         </div>
         <h3>Mysore, Karnataka</h3>
         <p class="phone">+91 9944021163</p>
-        <p class="email">infro@meerucrete.com</p>
+        <p class="email">merucreteblr@gmail.com</p>
         <div class="address">
           Yadavagiri Industrial Estate, Manjunathapura Main Road,<br>
           Brindavan Extension 2nd Stage, Mysuru, Karnataka
@@ -3007,17 +3031,7 @@ font-size: 2rem;
       </div>
 
       <!-- Card 3 -->
-      <div class="branch-card">
-        <div class="icon-circle">
-          <img src="{% static 'image/location2.png' %}" alt="Location Icon">
-        </div>
-        <h3>Hosur, Tamil Nadu</h3>
-        <p class="phone">+91 9786003054</p>
-        <p class="email">infro@meerucrete.com</p>
-        <div class="address">
-          Sipcot Industrial Estate, Amritha, Kothagondapalli,<br>Tamil Nadu
-        </div>
-      </div>
+    
 
     </div>
   </section>

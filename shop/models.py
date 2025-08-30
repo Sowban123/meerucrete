@@ -36,20 +36,23 @@ class Slide(models.Model):
     def __str__(self):
         return self.title
 
-
+# models.py
 from django.db import models
 
+# ------------------ Product Collection ------------------
 class ProductCollection(models.Model):
     title = models.CharField(max_length=100, help_text="E.g. VIANA LEDGE")
     subtitle = models.CharField(max_length=100, help_text="E.g. SERIES")
     main_image = models.ImageField(upload_to='products/main/')
-  
 
     def __str__(self):
         return f"{self.title} {self.subtitle}"
 
+
 class ProductCard(models.Model):
-    collection = models.ForeignKey(ProductCollection, related_name='cards', on_delete=models.CASCADE)
+    collection = models.ForeignKey(
+        ProductCollection, related_name='cards', on_delete=models.CASCADE
+    )
     image = models.ImageField(upload_to='products/cards/')
     color = models.CharField(max_length=100)
     size = models.CharField(max_length=50)
@@ -58,24 +61,26 @@ class ProductCard(models.Model):
         return f"{self.color} ({self.size})"
 
 
-from django.db import models
-
+# ------------------ Product Catalogue ------------------
 class ProductCatalogue(models.Model):
-    title = models.CharField(max_length=200)
-    subtitle = models.TextField(blank=True)
-    main_image = models.ImageField(upload_to='product_catalogue_images/', blank=True, null=True)
+    title = models.CharField(max_length=200, help_text="E.g. 2025 CATALOGUE")
+    subtitle = models.CharField(max_length=200, help_text="E.g. FULL RANGE")
+    main_image = models.ImageField(upload_to='catalogue/main/')
 
     def __str__(self):
-        return self.title
+        return f"{self.title} {self.subtitle}"
+
 
 class CatalogueCard(models.Model):
-    product = models.ForeignKey(ProductCatalogue, related_name='cards', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='catalogue_card_images/')
+    catalogue = models.ForeignKey(
+        ProductCatalogue, related_name='cards', on_delete=models.CASCADE
+    )
+    image = models.ImageField(upload_to='catalogue/cards/')
     color = models.CharField(max_length=100)
     size = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"{self.color} - {self.size}"
+        return f"{self.color} ({self.size})"
 
 class ProductEnquiry(models.Model):
     product_name = models.CharField(max_length=200)
@@ -87,3 +92,26 @@ class ProductEnquiry(models.Model):
 
     def __str__(self):
         return f"Enquiry for {self.product_name} from {self.mobile}"
+
+
+
+from django.db import models
+
+class Project(models.Model):
+    title = models.CharField(max_length=200)
+    short_description = models.TextField()
+    full_description = models.TextField()
+    features = models.TextField(blank=True, null=True)  # comma separated features
+    image = models.ImageField(upload_to='projects/')
+
+    def __str__(self):
+        return self.title
+
+class ProjectImage(models.Model):
+    project = models.ForeignKey(Project, related_name='additional_images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='projects/')
+    
+
+    def __str__(self):
+        return f"{self.project.title} Image"
+    

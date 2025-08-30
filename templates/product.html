@@ -318,7 +318,7 @@ html::-webkit-scrollbar-thumb {
 .container {
   max-width: 1300px;
   margin: auto;
-  padding: 20px;
+  padding: 10px;
   /* margin-top: rem; <-- looks like a typo, removed */
 }
 
@@ -363,15 +363,35 @@ html::-webkit-scrollbar-thumb {
 
 .card-container {
   position: absolute;
-  bottom: 3rem;
+  bottom: 3rem;         /* keep at bottom */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   gap: 30px;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  pointer-events: none;
+
+  overflow-x: auto;      /* enable horizontal scroll */
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* smooth swipe on mobile */
+  white-space: nowrap;
+
+  opacity: 1;            /* make visible */
+  pointer-events: auto;  /* allow interaction */
+  cursor: grab;
+
+  scrollbar-width: none;   /* hide scrollbar in Firefox */
+  -ms-overflow-style: none; /* hide scrollbar in IE/Edge */
 }
+
+.card-container::-webkit-scrollbar {
+  display: none; /* hide scrollbar in Chrome/Safari */
+}
+
+.card-container .popup-card {
+  flex: 0 0 auto;       /* prevent shrinking */
+  width: 250px;         /* adjust card width */
+}
+
 
 .popup-card {
   width: 250px;
@@ -392,7 +412,7 @@ html::-webkit-scrollbar-thumb {
 
 .popup-card img {
   width: 100%;
-  height: 200px; /* reduced from 300px */
+  height: 250px; /* reduced from 300px */
   object-fit: cover;
   transition: transform 0.3s ease;
 }
@@ -400,49 +420,132 @@ html::-webkit-scrollbar-thumb {
 .popup-card:hover img {
   transform: scale(1.1);
 }
+.card-container {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 30px;
+
+  max-width: 90%;          /* container width */
+  overflow-x: auto;         /* horizontal scroll */
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+
+  opacity: 0;               /* hidden by default */
+  pointer-events: none;     /* not interactive by default */
+  transition: opacity 0.3s ease;
+
+  cursor: grab;
+  scrollbar-width: none; 
+  -ms-overflow-style: none;
+}
+
+.card-container::-webkit-scrollbar {
+  display: none;
+}
+
+.card-container .popup-card {
+  flex: 0 0 auto;          /* prevent shrinking */
+  width: 250px;
+}
+
+/* Show cards on hover of the image-wrapper */
+.image-wrapper:hover .card-container {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+.popup-card {
+  position: relative; /* make card-info relative to this */
+  pointer-events: auto; /* enable hover for individual cards */
+}
 
 .card-info {
-  padding: 12px; /* reduced from 20px */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border-radius: 0 0 15px 15px;
+  padding: 12px 15px;
+  font-size: 14px;
   text-align: center;
-  font-size: 16px; /* reduced from 14px */
-  color: #ffffff;
-  background: linear-gradient(to right, #3d0017, #800033, #4f0022);
-  width: 100%;
+ font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+ font-size: larger;
+ font-weight: bold;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+/* Only show the info of the popup-card being hovered */
+.popup-card:hover .card-info {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .image-wrapper:hover .card-container {
   opacity: 1;
   pointer-events: auto;
 }
-
 .background-pattern {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   position: relative;
-  background:
-    repeating-linear-gradient(45deg, #eee 0, #eee 20px, #fff 20px, #fff 40px),
-    white;
-  padding: 50px 20px 100px;
-  animation: fadeIn 1s ease forwards;
+  padding: 20px 40px;
+  
+  background-size: 60px 60px;
+  background-color: #fff;
 }
 
 .maroon-bar {
-  height: 10px;
-  background-color: #881b35;
-  width: 100%;
-  margin-top: -30px;
-  margin-bottom: 30px;
+    flex: 1;
+    height: 30px;
+    background-color: #800033;
+    margin-left: -40px;
+    margin-right: 4rem;
 }
 
-.text-box {
-  text-align: right;
-  padding-right: 20px;
-}
-
-.text-box h1 {
+.text-line h1 {
+  font-family: "Cinzel", serif; /* nice elegant font */
   font-size: 36px;
-  color: #4d0701;
-  letter-spacing: 1px;
-  text-shadow: 1px 1px 2px #ccc;
+  font-weight: 500;
+  color: #800033;
+  white-space: nowrap;
 }
+
+.text-line .series {
+  font-weight: 300;
+  margin-left: 8px;
+  color: #b36b75;
+}
+
+.enquiry-btn {
+    display: inline-block;
+    margin-left: 26px;
+    background-color: #800000;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    padding: 10px 20px;   /* add space inside button */
+    transition: background-color 0.3s ease;
+}
+
+.enquiry-btn:hover {
+    background: #000000;
+    color: white;   /* keep text white */
+    text-decoration: none;
+}
+
 
 .text-box .viana {
   font-family: 'Playfair Display', serif;
@@ -459,10 +562,79 @@ html::-webkit-scrollbar-thumb {
   to { opacity: 1; transform: translateY(0); }
 }
 
+@media (max-width: 1200px) {
+  .text-line h1 {
+    font-size: 30px;
+  }
+  .maroon-bar {
+    margin-right: 2rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .background-pattern {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 20px;
+  }
+  .maroon-bar {
+    width: 100%;
+    height: 20px;
+    margin: 0 0 1rem 0;
+  }
+  .text-line h1 {
+    font-size: 26px;
+    white-space: normal;
+  }
+  .enquiry-btn {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .text-line h1 {
+    font-size: 22px;
+    text-align: left;
+  }
+  .enquiry-btn {
+    width: 100%;
+    text-align: center;
+    padding: 8px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .text-line h1 {
+    font-size: 18px;
+  }
+  .background-pattern {
+    padding: 10px 15px;
+    background-size: 30px 30px;
+  }
+  .maroon-bar {
+    height: 15px;
+  }
+  .enquiry-btn {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 320px) {
+  .text-line h1 {
+    font-size: 16px;
+  }
+  .enquiry-btn {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}
+
 /* ===== Responsive Styles ===== */
 @media (max-width: 768px) {
   .main-image {
-    height: 40vh;
+    height: 30vh;
   }
 
   .card-container {
@@ -575,20 +747,48 @@ html::-webkit-scrollbar-thumb {
 
 .custom-heading {
   text-align: center;
-  margin: 60px auto 40px;
-  padding: 20px;
-  max-width: 1000px;
+ 
+  padding: 60px 20px;
+  max-width: 100%;
   position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+
+  /* Background image */
+  background-image: url("https://i.pinimg.com/1200x/d3/1e/3b/d31e3bd11d6241b212ce764641adbe72.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.custom-heading h2 {
-  font-size: 48px;
-  font-family: 'Playfair Display', serif;
-  color: #881b35;
+/* ✅ Overlay */
+.custom-heading::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  border-radius: 10px;
+  z-index: 1;
+}
+
+/* ✅ Text stays above overlay */
+.custom-heading h2,
+.custom-heading p {
   position: relative;
+  z-index: 2;
+  color: #fff;
+}
+
+/* Main Heading */
+.custom-heading h2 {
+  font-size: clamp(28px, 6vw, 48px);
+  font-family: 'Playfair Display', serif;
   margin-bottom: 15px;
   text-transform: uppercase;
   letter-spacing: 2px;
+  line-height: 1.2;
+  text-align: center;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
 }
 
 .custom-heading h2::after {
@@ -601,35 +801,7 @@ html::-webkit-scrollbar-thumb {
   border-radius: 10px;
 }
 
-.custom-heading p {
-  font-size: 16px;
-  color: #444;
-  line-height: 1.6;
-  font-family: 'Roboto', sans-serif;
-}
-/* Section main heading */
-.custom-heading h2 {
-  font-size: clamp(28px, 6vw, 48px);
-  font-family: 'Playfair Display', serif;
-  color: #881b35;
-  position: relative;
-  margin-bottom: 15px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  line-height: 1.1;
-  text-align: center;
-}
 
-/* Paragraph under main heading */
-.custom-heading p {
-  font-size: clamp(14px, 3vw, 16px);
-  color: #444;
-  line-height: 1.6;
-  font-family: 'Roboto', sans-serif;
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
-}
 
 /* Series title inside .text-box */
 .text-box h1 {
@@ -865,22 +1037,6 @@ img.mb-3 {
   }
 }
 
-.enquiry-btn {
-  
-  display: inline-block;
-  margin-top: 15px;
-  padding: 10px 25px;
-  background-color: #800000; /* Maroon */
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
-}
-
-.enquiry-btn:hover {
-  background-color: #a52a2a;
-}
 .alert {
   padding: 10px 15px;
   background-color: #4caf50;
@@ -1057,49 +1213,85 @@ img.mb-3 {
 
 <!-- Back to Top Button -->
 <button id="backToTop" title="Back to Top">↑</button>
-  <!-- Navbar -->
+<!-- Navbar -->
 <header class="navbar">
   <div class="nav-container">
     <div class="logo">
-      <!-- Logo Image -->
-      <img src="{% static 'image/logonav.png' %}" alt="Logo" />
-      <span>MERU <strong>CRETE</strong></span>
+      <!-- Logo with link -->
+      <a href="{% url 'home' %}" class="flex items-center" style="text-decoration:none; color:inherit;">
+  <img src="{% static 'image/logonav.png' %}" alt="Logo" />
+  <span>MERU <strong>CRETE</strong></span>
+   </a>
+
     </div>
 
     <!-- Hamburger Icon (Visible on mobile) -->
     <button class="hamburger" onclick="toggleNavbar()">&#9776;</button>
 
     <!-- Navigation Links -->
-  <nav class="nav-links">
-  <a href="/" class="{% if request.path == '/' %}active{% endif %}" id="home">Home</a>
- <div class="dropdown">
-    <a href="#" class="{% if request.path|slice:":8" == '/product' %}active{% endif %}">Product ▾</a>
-    <div class="dropdown-content">
-      <a href="/products" class="{% if request.path == '/products' %}active{% endif %}">collection</a>
-    <a href="/product-catalogue" class="{% if request.path == '/product-catalogue' %}active{% endif %}">Catalogue</a>
-    </div>
-  </div>
-  <a href="/about" class="{% if request.path|slice:":6" == '/about' %}active{% endif %}">About Us</a>
-  <a href="/contact" class="{% if request.path|slice:":8" == '/contact' %}active{% endif %}">Contact Us</a>
-</nav>
+    <nav class="nav-links">
+      <a href="/" class="{% if request.path == '/' %}active{% endif %}" id="home">Home</a>
+      <div class="dropdown">
+        <a href="#" class="{% if request.path|slice:":8" == '/product' %}active{% endif %}">Product ▾</a>
+        <div class="dropdown-content">
+          <a href="/products" class="{% if request.path == '/products' %}active{% endif %}">Collection</a>
+          <a href="/product-catalogue" class="{% if request.path == '/product-catalogue' %}active{% endif %}">Catalogue</a>
+        </div>
+      </div>
+      <a href="/about" class="{% if request.path|slice:":6" == '/about' %}active{% endif %}">About Us</a>
+      <a href="/contact" class="{% if request.path|slice:":8" == '/contact' %}active{% endif %}">Contact Us</a>
+    </nav>
   </div>
 </header>
 
+<script>
+  document.querySelectorAll('.card-container').forEach(slider => {
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  slider.addEventListener('mousedown', e => {
+    isDown = true;
+    slider.classList.add('is-dragging');
+    startX = e.pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+  });
+
+  slider.addEventListener('mouseleave', () => { isDown = false; slider.classList.remove('is-dragging'); });
+  slider.addEventListener('mouseup', () => { isDown = false; slider.classList.remove('is-dragging'); });
+  slider.addEventListener('mousemove', e => {
+    if(!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - startX;
+    slider.scrollLeft = scrollLeft - x;
+  });
+
+  slider.addEventListener('touchstart', e => { startX = e.touches[0].pageX; scrollLeft = slider.scrollLeft; }, {passive:true});
+  slider.addEventListener('touchmove', e => {
+    const x = e.touches[0].pageX;
+    slider.scrollLeft = scrollLeft - (x - startX);
+  }, {passive:true});
+});
+
+</script>
 <section class="custom-heading">
-  <h2>Our MeeruCrete Product</h2>
-  <p>Explore the artistry of our cultured stone collections – elegance, durability, and style in every series. Discover the perfect surface for your dream project.</p>
+  <h2>Our  Product</h2>
 </section>
 
+
 <div class="container">
-  
+
+
   {% for s in series %}
+
+    
+  
   <div class="image-wrapper" data-aos="fade-up" data-aos-duration="1500">
     {% if s.main_image %}
       <img src="{{ s.main_image.url }}" alt="{{ s.title }}" class="main-image" />
-    {% else %}
-      <p>No main image available</p>
     {% endif %}
-
+    <br>
+    <br>
     <div class="card-container">
       {% for card in s.cards.all %}
       <div class="popup-card">
@@ -1109,20 +1301,26 @@ img.mb-3 {
           <p><strong>Size:</strong> {{ card.size }}</p>
         </div>
       </div>
-      {% empty %}
-        <p>No cards available.</p>
       {% endfor %}
     </div>
+    
   </div>
-  
+<div class="background-pattern">
+  <div class="maroon-bar"></div>
+  <div class="text-line">
+    <h1>
+      <span class="viana">{{ s.title }}</span>
+      <br>
+      <span class="series">SERIES</span>
+    </h1>
+  </div>
+  <a href="#" class="enquiry-btn" data-product="{{ s.title }}">Enquiry</a>
+</div>
 
-  <div class="background-pattern">
-    <div class="maroon-bar"></div>
-    <div class="text-box">
-      <h1><span class="viana">{{ s.title|upper }}</span> <span class="series">SERIES</span></h1>
-      <a href="#" class="enquiry-btn" data-product="{{ s.title }}">Enquiry</a>
-    </div>
-  </div>
+  
+<br>
+<br>
+  
   {% endfor %}
 </div>
 
@@ -1285,38 +1483,36 @@ img.mb-3 {
 <!-- PLACE SCRIPT HERE, at the end of body -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const enquiryButtons = document.querySelectorAll('.enquiry-btn');
-    const popupOverlay = document.getElementById('popupOverlay'); 
-    const productNameInput = document.getElementById('productName'); 
-    const closeBtn = document.getElementById('closeBtn'); 
-    const enquiryForm = document.getElementById('enquiryForm');
+  const enquiryButtons = document.querySelectorAll('.enquiry-btn');
+  const popupOverlay = document.getElementById('popupOverlay'); 
+  const productNameInput = document.getElementById('productName'); 
+  const closeBtn = document.getElementById('closeBtn'); 
+  const enquiryForm = document.getElementById('enquiryForm');
 
-    enquiryButtons.forEach(button => {
-      button.addEventListener('click', e => {
-        e.preventDefault();
-        const textBox = button.closest('.text-box');
-        if (textBox) {
-          const productName = textBox.querySelector('h1').innerText.trim();
-          productNameInput.value = productName;
-        } else {
-          productNameInput.value = "Unknown Product";
-        }
-        popupOverlay.style.display = 'flex';
-      });
-    });
+  enquiryButtons.forEach(button => {
+    button.addEventListener('click', e => {
+      e.preventDefault();
+      // Get product name directly from data attribute
+      const productName = button.getAttribute('data-product') || "Unknown Product";
+      productNameInput.value = productName;
 
-    closeBtn.addEventListener('click', () => {
-      popupOverlay.style.display = 'none';
-      enquiryForm.reset();
-    });
-
-    popupOverlay.addEventListener('click', e => {
-      if (e.target === popupOverlay) {
-        popupOverlay.style.display = 'none';
-        enquiryForm.reset();
-      }
+      popupOverlay.style.display = 'flex';
     });
   });
+
+  closeBtn.addEventListener('click', () => {
+    popupOverlay.style.display = 'none';
+    enquiryForm.reset();
+  });
+
+  popupOverlay.addEventListener('click', e => {
+    if (e.target === popupOverlay) {
+      popupOverlay.style.display = 'none';
+      enquiryForm.reset();
+    }
+  });
+});
+
 </script>
 
 
