@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: meerucrete
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn meerucrete.wsgi:application --preload --workers=4 --threads=2 --bind 0.0.0.0:$PORT
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: meerucrete.settings
+      - key: PYTHON_VERSION
+        value: 3.11
+    autoDeploy: true
+
+databases:
+  - name: meerucrete-db
+    databaseName: merucrete_db
+    user: postgres
+    plan: free
