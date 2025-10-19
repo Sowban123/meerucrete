@@ -899,14 +899,14 @@ img.mb-3 {
     <nav class="nav-links">
       <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
       <div class="dropdown">
-        <a href="#" class="{% if request.path|slice:":8" == '/product' %}active{% endif %}">Product ▾</a>
+        <a href="#" class="{% if request.path|slice:":8" == '/product' %}active{% endif %}">Product</a>
         <div class="dropdown-content">
           <a href="/products" class="{% if request.path == '/products' %}active{% endif %}">Collection</a>
           <a href="/product-catalogue" class="{% if request.path == '/product-catalogue' %}active{% endif %}">Catalogue</a>
         </div>
       </div>
-      <a href="/about" class="{% if request.path|slice:":6" == '/about' %}active{% endif %}">About Us</a>
-      <a href="/contact" class="{% if request.path|slice:":8" == '/contact' %}active{% endif %}">Contact Us</a>
+      <a href="/about" class="{% if request.path|slice:":6" == '/about' %}active{% endif %}">About </a>
+      <a href="/contact" class="{% if request.path|slice:":8" == '/contact' %}active{% endif %}">Contact </a>
     </nav>
 
   </div>
