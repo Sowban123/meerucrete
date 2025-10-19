@@ -721,7 +721,6 @@ body::-webkit-scrollbar-thumb {
    WHY MEERU RESPONSIVE END
 ============================ */
 
-
 /* ============================
    TRENDING PRODUCTS SECTION
 ============================ */
@@ -730,6 +729,7 @@ body::-webkit-scrollbar-thumb {
   margin: auto;
   text-align: center;
   margin-top: 90px;
+  overflow: hidden;
 }
 
 .product-section h2 {
@@ -754,6 +754,42 @@ body::-webkit-scrollbar-thumb {
   overflow: hidden;
   padding: 17px;
   box-sizing: border-box;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  will-change: transform;
+  opacity: 0;
+  animation: fadeInUp 0.8s forwards;
+}
+
+/* Staggered animation delays for each card */
+.product-card:nth-child(1) { animation-delay: 0.1s; }
+.product-card:nth-child(2) { animation-delay: 0.2s; }
+.product-card:nth-child(3) { animation-delay: 0.3s; }
+.product-card:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Hover pop effect */
+.product-card:hover {
+  transform: translateY(-10px) scale(1.03) rotate(1deg);
+  box-shadow: 0 25px 50px rgba(131, 43, 74, 0.25);
+}
+
+/* Image container for better overflow control */
+.product-card .image-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
 }
 
 .product-card img {
@@ -762,22 +798,49 @@ body::-webkit-scrollbar-thumb {
   border-radius: 15px;
   object-fit: cover;
   display: block;
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Modern image hover effect with subtle zoom and brightness */
+.product-card:hover img {
+  transform: scale(1.15);
+  filter: brightness(1.1);
+}
+
+/* Glow effect on hover */
+.product-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(131, 43, 74, 0.4);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+.product-card:hover::after {
+  opacity: 1;
 }
 
 .hover-content {
-    position: absolute;
-    bottom: 10px;
-    left: 8px;
-    right: 8px;
-    height:120px;
-    background: rgba(0, 0, 0, 0.6);
-    color: #fff;
-    border-radius: 0 0 15px 15px;
-    padding: 12px 15px;
-    font-size: 14px;
-    transform: translateY(100%);
-    opacity: 0;
-    transition: all 0.3s ease;
+  position: absolute;
+  bottom: 10px;
+  left: 8px;
+  right: 8px;
+  height: 120px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7));
+  color: #fff;
+  border-radius: 0 0 15px 15px;
+  padding: 15px;
+  font-size: 14px;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  backdrop-filter: blur(5px);
 }
 
 .product-card:hover .hover-content {
@@ -787,25 +850,31 @@ body::-webkit-scrollbar-thumb {
 
 .hover-content h6 {
   margin: 0;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
+  letter-spacing: 0.5px;
 }
 
 .hover-content p {
-  margin: 5px 0 0;
-  line-height: 1.4;
-  font-size: 13px;
+  margin: 8px 0 0;
+  line-height: 1.5;
+  font-size: 14px;
+  opacity: 0.9;
 }
-#tre {
 
+#tre {
   font-weight: 500;
   font-size: 3.5rem;
   margin-bottom: 40px;
   color: black;
-  
-  }
+  position: relative;
+  display: inline-block;
+}
 
 
+.product-section:hover #tre::after {
+  width: 200px;
+}
 /* ========================
    RESPONSIVE MEDIA QUERIES
 =========================== */
@@ -2589,11 +2658,11 @@ font-size: 2rem;
     </div>
   </div>
 
-
-<section class="product-section" data-aos="slide-right" data-aos-duration="2500">
+<section class="product-section">
   <h2 id="tre">Trending Products</h2>
   <div class="product-grid">
-    <div class="product-card">
+
+    <div class="product-card puff-in">
       <img src="https://i.pinimg.com/474x/15/ce/a0/15cea06c4870432c9872e7b6be6f0ddb.jpg" alt="Product 1">
       <div class="hover-content">
         <h6>MADRAID</h6>
@@ -2601,7 +2670,7 @@ font-size: 2rem;
       </div>
     </div>
 
-    <div class="product-card " data-aos="flip-right" data-aos-duration="2500">
+    <div class="product-card puff-in" style="animation-delay:0.6s">
       <img src="https://i.pinimg.com/474x/12/f9/fe/12f9fe1ae12f6df29a2c923a4a86b433.jpg" alt="Product 2">
       <div class="hover-content">
         <h6>SPLENDOR GREY</h6>
@@ -2609,7 +2678,7 @@ font-size: 2rem;
       </div>
     </div>
 
-    <div class="product-card"data-aos="slide-right" data-aos-duration="2500">
+    <div class="product-card puff-in" style="animation-delay:0.8s">
       <img src="https://i.pinimg.com/474x/bf/ed/ca/bfedcadc1b0f1e9b36fe550a2d57092b.jpg" alt="Product 3">
       <div class="hover-content">
         <h6>BRITISH BRICK</h6>
@@ -2617,19 +2686,16 @@ font-size: 2rem;
       </div>
     </div>
 
-    <div class="product-card"data-aos="flip-right" data-aos-duration="2500" >
+    <div class="product-card puff-in" style="animation-delay:0.9s">
       <img src="https://i.pinimg.com/474x/ec/17/d9/ec17d9022ae9aa90465930aeb8a5550d.jpg" alt="Product 4">
       <div class="hover-content">
         <h6>ANTIQUE BEIGE</h6>
-        <p>Size: 24" x 24"<br>Thickness: 30 mm<br>Weight: 14.20kg / sq.ft</p> 
+        <p>Size: 24" x 24"<br>Thickness: 30 mm<br>Weight: 14.20kg / sq.ft</p>
       </div>
     </div>
-  </div> <!-- close product-grid -->
 
-  <!-- Place slider dots outside product-grid -->
-  <div class="slider-dots"></div>
+  </div>
 </section>
-
 
 
 

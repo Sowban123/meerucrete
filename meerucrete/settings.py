@@ -268,11 +268,16 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
+
 # Email settings
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "nnahmed.1982@gmail.com")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "fclupabmpigmiwhj")  # app password
+
+# --- Client's Gmail credentials (replace below) ---
+EMAIL_HOST_USER = "nnahmed.1982@gmail.com"  # client's Gmail address
+EMAIL_HOST_PASSWORD = "fclupabmpigmiwhj"  # client's app password
+# -------------------------------------------------
+
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

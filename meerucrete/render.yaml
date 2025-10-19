@@ -2,7 +2,9 @@ services:
   - type: web
     name: meerucrete
     env: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
     startCommand: gunicorn meerucrete.wsgi:application --preload --workers=4 --threads=2 --bind 0.0.0.0:$PORT
     envVars:
       - key: DJANGO_SETTINGS_MODULE

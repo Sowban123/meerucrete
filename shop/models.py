@@ -1,17 +1,20 @@
-# Create your models here.
 from django.db import models
+from django.utils import timezone
 
+
+# ------------------ Contact ------------------
 class Contact(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField()
     phone = models.CharField(max_length=20, blank=True, null=True)
     message = models.TextField()
+    created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.name
 
-from django.db import models
 
+# ------------------ Slider ------------------
 class Slide(models.Model):
     SHAPE_CLASS_CHOICES = [
         ('shape-tri', 'Triangle'),
@@ -36,8 +39,6 @@ class Slide(models.Model):
     def __str__(self):
         return self.title
 
-# models.py
-from django.db import models
 
 # ------------------ Product Collection ------------------
 class ProductCollection(models.Model):
@@ -82,6 +83,8 @@ class CatalogueCard(models.Model):
     def __str__(self):
         return f"{self.color} ({self.size})"
 
+
+# ------------------ Product Enquiry ------------------
 class ProductEnquiry(models.Model):
     product_name = models.CharField(max_length=200)
     address = models.TextField()
@@ -94,24 +97,21 @@ class ProductEnquiry(models.Model):
         return f"Enquiry for {self.product_name} from {self.mobile}"
 
 
-
-from django.db import models
-
+# ------------------ Projects ------------------
 class Project(models.Model):
     title = models.CharField(max_length=200)
     short_description = models.TextField()
     full_description = models.TextField()
-    features = models.TextField(blank=True, null=True)  # comma separated features
+    features = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='projects/')
 
     def __str__(self):
         return self.title
 
+
 class ProjectImage(models.Model):
     project = models.ForeignKey(Project, related_name='additional_images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='projects/')
-    
 
     def __str__(self):
         return f"{self.project.title} Image"
-    
