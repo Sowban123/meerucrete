@@ -5,30 +5,125 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Meru Crete</title>
+
+  <!-- Primary Meta Tags -->
+  <title>Meru Crete | Premium Wall Cladding & Decorative Concrete Products</title>
+  <meta name="title" content="Meru Crete | Premium Wall Cladding & Decorative Concrete Products in India">
+  <meta name="description" content="Transform your spaces with Meru Crete's premium wall cladding, cultured stones, and decorative concrete products. Perfect for modern architecture across India.">
+  <meta name="keywords" content="Meru Crete, wall cladding, cultured stone, decorative concrete, stone veneer, wall panels, concrete products, construction materials, architectural design, facade design, tiles, India, Ambur, Tamil Nadu">
+  <meta name="author" content="Meru Crete Team">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#1a5276">
+  <meta name="msapplication-TileColor" content="#1a5276">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.merucrete.com/" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Meru Crete">
+  <meta property="og:url" content="https://www.merucrete.com/">
+  <meta property="og:title" content="Meru Crete | Premium Wall Cladding & Decorative Concrete Products in India">
+  <meta property="og:description" content="Transform your spaces with Meru Crete's premium wall cladding and cultured stone products. Perfect for residential and commercial architecture across India.">
+  <meta property="og:image" content="{% static 'image/og-image.jpg' %}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_IN">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://www.merucrete.com/">
+  <meta property="twitter:title" content="Meru Crete | Premium Wall Cladding & Decorative Concrete Products">
+  <meta property="twitter:description" content="Meru Crete brings design and durability together with premium wall cladding and decorative concrete solutions across India.">
+  <meta property="twitter:image" content="{% static 'image/og-image.jpg' %}">
+  <meta property="twitter:creator" content="@merucrete">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="{% static 'image/logonav.png' %}">
+  <link rel="apple-touch-icon" href="{% static 'image/logonav.png' %}">
+
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" as="style">
+  <link rel="preload" href="{% static 'image/css/style.css' %}" as="style">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Meru Crete",
+    "url": "https://www.merucrete.com/",
+    "logo": "{% static 'image/logonav.png' %}",
+    "description": "Meru Crete specializes in premium wall cladding, cultured stone, and decorative concrete products for homes, offices, and commercial projects across India.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "123 Industrial Estate",
+      "addressLocality": "Bengaluru",
+      "addressRegion": "Karnataka",
+      "addressCountry": "India"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+91 8825813923",
+      "contactType": "customer service",
+      "areaServed": "IN",
+      "availableLanguage": ["en", "ta"]
+    },
+    "sameAs": [
+      "https://www.facebook.com/merucrete",
+      "https://www.instagram.com/merucrete",
+      "https://www.linkedin.com/company/merucrete"
+    ],
+    "areaServed": {
+      "@type": "Country",
+      "name": "India"
+    },
+    "keywords": "wall cladding, cultured stone, decorative concrete, construction materials"
+  }
+  </script>
+
+  <!-- Additional Product Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Premium Wall Cladding",
+    "description": "High-quality wall cladding solutions for modern architecture",
+    "brand": {
+      "@type": "Brand",
+      "name": "Meru Crete"
+    },
+    "offers": {
+      "@type": "AggregateOffer",
+      "offerCount": "10",
+      "lowPrice": "INR 500",
+      "highPrice": "INR 5000",
+      "priceCurrency": "INR",
+      "availability": "https://schema.org/InStock"
+    }
+  }
+  </script>
 
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 
-  <!-- Font Awesome 6.5.0 CSS -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <!-- Remixicon (if you need it) -->
+  <!-- Remixicon -->
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="{% static 'image/css/style.css' %}">
-
-  <!-- AOS CSS for animations -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet">
 </head>
 
 
@@ -3127,9 +3222,10 @@ font-size: 2rem;
 
  <!-- copy rights -->
 <div class="footer-text">
-  <p>© 2025 MeeruCrete | All Rights Reserved</p>
-  
+  <p>© 2025 Meru Crete | All Rights Reserved</p>
+  <p class="credit">Developed by <strong>Mohammed Sowban</strong></p>
 </div>
+
 
 
 
