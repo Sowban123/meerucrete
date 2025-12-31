@@ -183,13 +183,14 @@ SECRET_KEY = os.getenv(
 # DEBUG
 DEBUG = os.getenv("DJANGO_DEBUG", "False") == "True"
 
-# ALLOWED HOSTS
 ALLOWED_HOSTS = [
+    "meerucrete.com",
+    "www.meerucrete.com",
+    "meerucrete-zfm3.onrender.com",
     "127.0.0.1",
     "localhost",
-    "www.merucrete.com",
-    "meerucrete-2.onrender.com",   # Render subdomain
 ]
+
 
 # Application definition
 INSTALLED_APPS = [
@@ -270,7 +271,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 
 # Email settings
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"   
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
