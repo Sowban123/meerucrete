@@ -184,12 +184,17 @@ SECRET_KEY = os.getenv(
 DEBUG = os.getenv("DJANGO_DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = [
-    "meerucrete.com",
-    "www.meerucrete.com",
+    "merucrete.com",
+    "www.merucrete.com",
     "meerucrete-zfm3.onrender.com",
-    "127.0.0.1",
-    "localhost",
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://merucrete.com",
+    "https://www.merucrete.com",
+]
+
+
 
 
 # Application definition
