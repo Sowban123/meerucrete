@@ -180,18 +180,22 @@ SECRET_KEY = os.getenv(
     "django-insecure-hpurq#x3_tnd_bogm!4+t$d*xurzv81owmzl3u#o%b612t84u+"  # fallback for local dev
 )
 
-# DEBUG
-DEBUG = os.getenv("DJANGO_DEBUG", "False") == "True"
+DEBUG = True
+
 
 ALLOWED_HOSTS = [
     "merucrete.com",
     "www.merucrete.com",
     "meerucrete-zfm3.onrender.com",
+    "127.0.0.1",
+    "localhost",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://merucrete.com",
     "https://www.merucrete.com",
+    "http://127.0.0.1:8000",
+    "http://localhost:8000",
 ]
 
 
@@ -239,16 +243,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "meerucrete.wsgi.application"
 
-# Database
-DATABASE_URL = os.getenv("DATABASE_URL", "postgres://postgres:1234@localhost:5432/merucrete_db")
+# # Database
+# DATABASE_URL = os.getenv("DATABASE_URL", "postgres://postgres:1234@localhost:5432/merucrete_db")
+
+# DATABASES = {
+#     "default": dj_database_url.config(
+#         default=DATABASE_URL,
+#         conn_max_age=600,
+#         ssl_require=True if "render.com" in DATABASE_URL else False,
+#     )
+# }             
+
 
 DATABASES = {
-    "default": dj_database_url.config(
-        default=DATABASE_URL,
-        conn_max_age=600,
-        ssl_require=True if "render.com" in DATABASE_URL else False,
-    )
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
 }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
