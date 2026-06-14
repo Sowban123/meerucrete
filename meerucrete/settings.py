@@ -30,7 +30,7 @@
 #     "localhost",
 #     "www.merucrete.com",
 #     "meerucrete-2.onrender.com",  # Render free subdomain
-#     "meerucrete-gray.vercel.app"
+#     "meerucrete-gray.vercel.app",
 # ]
 
     
